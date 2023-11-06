@@ -12,6 +12,11 @@
                             SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
+                        <HorizontalStackLayout Spacing="20" x:DataType="models:Post">
+                        <Label Text="{Binding Title}"></Label>
+                        <Label Text="{Binding Description}"></Label>
+                        <Label Text="{Binding ImageLink}"></Label>
+                        </HorizontalStackLayout>
                     </DataTemplate>
 
                 </CollectionView.ItemTemplate>

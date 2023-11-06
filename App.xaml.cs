@@ -1,4 +1,6 @@
-﻿namespace NewsAndWeather;
+﻿using NewsAndWeather.Services;
+
+namespace NewsAndWeather;
 
 public partial class App : Application
 {
@@ -6,6 +8,8 @@ public partial class App : Application
     {
         InitializeComponent();
 
+        DependencyService.Register<NewsService>();
+        DependencyService.Register<WeatherService>();
         MainPage = new AppShell();
     }
 }
