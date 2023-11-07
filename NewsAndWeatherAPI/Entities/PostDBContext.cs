@@ -5,7 +5,7 @@ namespace NewsAndWeatherAPI.Entities;
 
 public class PostDBContext : DbContext
 {
-    private string _connectionString = "Server=DESKTOP-THG5B7H;Database=NewsDb; Trusted_Connection=True; Encrypt=False";
+    private string _connectionString = "Server=localhost;Database=NewsDb; Trusted_Connection=True; Encrypt=False";
     
     public DbSet<Post> Posts { get; set; }
 

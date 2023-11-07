@@ -7,16 +7,20 @@
              xmlns:models="clr-namespace:NewsAndWeather.Models"
              x:DataType="viewmodels:NewsPageViewModel">
     <ScrollView>
-            <CollectionView x:Name="PostsListView"
+        <CollectionView x:Name="PostsListView"
                             ItemsSource="{Binding Posts}"
-                            SelectionMode="None">
-                <CollectionView.ItemTemplate>
+                            SelectionMode="None"
+                            >
+            <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <HorizontalStackLayout Spacing="20" x:DataType="models:Post">
-                        <Label Text="{Binding Title}"></Label>
-                        <Label Text="{Binding Description}"></Label>
-                        <Label Text="{Binding ImageLink}"></Label>
-                        </HorizontalStackLayout>
+                        <VerticalStackLayout>
+                        <Grid x:DataType="models:Post" RowDefinitions="*,*,auto,auto" ColumnDefinitions="*,*,*,*" RowSpacing="20">
+                        <Label FontAttributes="Bold" TextTransform="Uppercase" Text="{Binding Title}" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center"></Label>
+                        <Label Text="{Binding Description}" Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center"></Label>
+                        <Image Aspect="AspectFit" Source="{Binding ImageLink}" Grid.Row="0" Grid.RowSpan="4" Grid.Column="2" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center"></Image>
+                        </Grid>
+                            <BoxView Color="Aqua" HorizontalOptions="Fill" HeightRequest="30"> </BoxView>
+                            </VerticalStackLayout>
                     </DataTemplate>
 
                 </CollectionView.ItemTemplate>

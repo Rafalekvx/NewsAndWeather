@@ -1,8 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAndWeather", "NewsAndWeather.csproj", "{B41B2F67-A9A9-41BD-9770-403E6163DA2C}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAndWeather", "NewsAndWeather.csproj", "{B41B2F67-A9A9-41BD-9770-403E6163DA2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAndWeatherAPI", "NewsAndWeatherAPI\NewsAndWeatherAPI.csproj", "{E22E9637-313F-479D-9C56-41B4C2BFAD09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAndWeatherAPI", "NewsAndWeatherAPI\NewsAndWeatherAPI.csproj", "{E22E9637-313F-479D-9C56-41B4C2BFAD09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,6 +15,7 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B41B2F67-A9A9-41BD-9770-403E6163DA2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B41B2F67-A9A9-41BD-9770-403E6163DA2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B41B2F67-A9A9-41BD-9770-403E6163DA2C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{B41B2F67-A9A9-41BD-9770-403E6163DA2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B41B2F67-A9A9-41BD-9770-403E6163DA2C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E22E9637-313F-479D-9C56-41B4C2BFAD09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -19,6 +23,7 @@ Global
 		{E22E9637-313F-479D-9C56-41B4C2BFAD09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E22E9637-313F-479D-9C56-41B4C2BFAD09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
