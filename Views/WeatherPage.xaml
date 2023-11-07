@@ -12,23 +12,14 @@
                         ItemsSource="{Binding Forecasts}"
                         SelectionMode="None"
         >
-            <CollectionView.Header>
-                <HorizontalStackLayout>
-                    <Label FontAttributes="Bold" TextTransform="Uppercase" Text="Data"  HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                    <Label Text="Minimum temperature"  HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                    <Label Text="Maximum temperature"  HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                    <Label Text="WeatherIco"  HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                </HorizontalStackLayout>
-            </CollectionView.Header>
-            
             
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <HorizontalStackLayout x:DataType="models:DailyForecast" >
+                    <HorizontalStackLayout x:DataType="models:DailyForecast" BackgroundColor="MediumAquamarine">
+                            <Image Source="{Binding Day.IconPhrase}"  HorizontalOptions="Center" VerticalOptions="Center"></Image>
                             <Label Text="{Binding Date}"  HorizontalOptions="Center" VerticalOptions="Center"></Label>
                             <Label Text="{Binding Temperature.Minimum.Value}"  HorizontalOptions="Center" VerticalOptions="Center"></Label>
                             <Label Text="{Binding Temperature.Maximum.Value}"  HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                            <Label Text="{Binding Day.IconPhrase}"  HorizontalOptions="Center" VerticalOptions="Center"></Label>
                     </HorizontalStackLayout>
                 </DataTemplate>
 

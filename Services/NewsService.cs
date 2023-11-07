@@ -13,9 +13,9 @@ public class NewsService : INewsService
     
     public async Task<Post> GetOneNews(int id)
     {
-        string one = "/api/news/"+ id;
+        string requestUrl = $"/api/news/{id}";
         
-        var responseMsg = _client.GetAsync(url + one).Result;
+        var responseMsg = _client.GetAsync(url + requestUrl).Result;
         
         responseMsg.EnsureSuccessStatusCode();
         string responseBody = await responseMsg.Content.ReadAsStringAsync();
@@ -28,9 +28,9 @@ public class NewsService : INewsService
 
     public async Task<List<Post>> GetAllNews()
     {
-        string all = "/api/news";
+        string requestUrl = "/api/news";
         
-        var responseMsg = _client.GetAsync(url + all).Result;
+        var responseMsg = _client.GetAsync(url + requestUrl).Result;
         
         responseMsg.EnsureSuccessStatusCode();
         string responseBody = await responseMsg.Content.ReadAsStringAsync();

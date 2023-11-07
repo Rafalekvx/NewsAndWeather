@@ -37,6 +37,8 @@ public partial class WeatherPageViewModel : BaseViewModel
             Forecasts.Clear();
             foreach (DailyForecast forecast in helperList)
             {
+                forecast.Day.IconPhrase = (string)Enum.Parse(typeof(string), forecast.Day.IconPhrase);
+                forecast.Day.IconPhrase = "/WeatherIcons/" + forecast.Day.IconPhrase;
                 Forecasts.Add(forecast);
             }
         }
