@@ -10,7 +10,7 @@ using NewsAndWeatherAPI.Entities;
 
 namespace NewsAndWeatherAPI.Migrations
 {
-    [DbContext(typeof(PostDBContext))]
+    [DbContext(typeof(NAWDBContext))]
     [Migration("20231105174017_Initial")]
     partial class Initial
     {

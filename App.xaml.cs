@@ -10,6 +10,7 @@ public partial class App : Application
 
         DependencyService.Register<NewsService>();
         DependencyService.Register<WeatherService>();
+        DependencyService.Register<LocationService>();
         MainPage = new AppShell();
     }
 }

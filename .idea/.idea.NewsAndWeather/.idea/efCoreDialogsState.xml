@@ -4,7 +4,8 @@
     <option name="keyValueStorage">
       <map>
         <entry key="Common:buildConfiguration" value="Debug" />
-        <entry key="Common:e22e9637-313f-479d-9c56-41b4c2bfad09:dbContext" value="NewsAndWeatherAPI.Entities.PostDBContext" />
+        <entry key="Common:e22e9637-313f-479d-9c56-41b4c2bfad09:dbContext" value="NewsAndWeatherAPI.Entities.NAWDBContext" />
+        <entry key="Common:enableDiagnosticLogging" value="false" />
         <entry key="Common:noBuild" value="false" />
         <entry key="Common:outputFolder" value="Migrations" />
         <entry key="Common:useDefaultConnection" value="true" />

@@ -16,6 +16,7 @@
     public class Day
     {
         public int Icon { get; set; }
+        public string? IconString { get; set; }
         public string IconPhrase { get; set; }
         public bool HasPrecipitation { get; set; }
         public string PrecipitationType { get; set; }
@@ -52,6 +53,7 @@
     public class Night
     {
         public int Icon { get; set; }
+        public string? IconString { get; set; }
         public string IconPhrase { get; set; }
         public bool HasPrecipitation { get; set; }
         public string PrecipitationType { get; set; }

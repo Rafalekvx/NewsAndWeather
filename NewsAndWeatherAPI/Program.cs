@@ -4,9 +4,9 @@ using NewsAndWeatherAPI.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<PostDBContext>();
+builder.Services.AddDbContext<NAWDBContext>();
 builder.Services.AddScoped<INewsService, NewsService>();
-
+builder.Services.AddScoped<ILocationService, LocationService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

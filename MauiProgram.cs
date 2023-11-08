@@ -29,6 +29,7 @@ public static class MauiProgram
         //Services
         builder.Services.AddScoped<INewsService, NewsService>();
         builder.Services.AddScoped<IWeatherService, WeatherService>();
+        builder.Services.AddScoped<ILocationService, LocationService>();
         
         
 #if DEBUG

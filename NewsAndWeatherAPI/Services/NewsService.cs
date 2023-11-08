@@ -6,9 +6,9 @@ namespace NewsAndWeatherAPI.Services;
 
 public class NewsService : INewsService
 {
-    private readonly PostDBContext _dbContext;
+    private readonly NAWDBContext _dbContext;
     
-    public NewsService(PostDBContext dbContext)
+    public NewsService(NAWDBContext dbContext)
     {
         _dbContext = dbContext;
     }

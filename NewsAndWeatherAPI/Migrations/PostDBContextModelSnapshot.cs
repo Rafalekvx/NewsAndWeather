@@ -9,7 +9,7 @@ using NewsAndWeatherAPI.Entities;
 
 namespace NewsAndWeatherAPI.Migrations
 {
-    [DbContext(typeof(PostDBContext))]
+    [DbContext(typeof(NAWDBContext))]
     partial class PostDBContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -20,6 +20,20 @@ namespace NewsAndWeatherAPI.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("NewsAndWeather.Models.Location", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Locations");
+                });
 
             modelBuilder.Entity("NewsAndWeatherAPI.Models.Post", b =>
                 {
