@@ -16,62 +16,115 @@ public class WeatherService : IWeatherService
     {
 
         string requestUrl = $"/forecasts/v1/daily/5day/{locationID}?apikey={apikey}&metric=true";
-        
-        var responseMsg = _client.GetAsync(url + requestUrl).Result;
-        
-        
-        string responseBody = await responseMsg.Content.ReadAsStringAsync();
 
-        if (!(responseMsg.IsSuccessStatusCode))
+        try
         {
-            Weather Example = new Weather() { 
-                Headline = new Headline()
-                {
-                    EffectiveDate = DateTime.Now,
-                    EffectiveEpochDate = 1,
-                    Severity = 1,
-                    Text = "test",
-                    Category = "test",
-                    EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)),
-                    EndEpochDate = 1,
-                    MobileLink = "api",
-                    Link = "api"
-                },
-                DailyForecasts = new List<DailyForecast>()
+            var responseMsg = _client.GetAsync(url + requestUrl).Result;
+
+
+            string responseBody = await responseMsg.Content.ReadAsStringAsync();
+
+            if (!(responseMsg.IsSuccessStatusCode))
             {
-                new DailyForecast() {
-                    Date = DateTime.Now, 
-                    EpochDate = 1,
-                    Temperature = new Temperature()
+                Weather Example = new Weather()
+                {
+                    Headline = new Headline()
                     {
-                        Maximum = new Maximum() {Unit = "C",UnitType = 0,Value = 37}, 
-                        Minimum = new Minimum(){Unit = "C",UnitType = 0,Value = 21}
+                        EffectiveDate = DateTime.Now,
+                        EffectiveEpochDate = 1,
+                        Severity = 1,
+                        Text = "test",
+                        Category = "test",
+                        EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)),
+                        EndEpochDate = 1,
+                        MobileLink = "api",
+                        Link = "api"
                     },
-                    Day = new Day()
+                    DailyForecasts = new List<DailyForecast>()
                     {
-                        Icon = 1, HasPrecipitation = false, IconPhrase = "Soo Hot", PrecipitationIntensity = "", PrecipitationType = ""
-                    },
-                    Night = new Night()
-                    {
-                        Icon = 33, HasPrecipitation = false, IconPhrase = "Soo Hot", PrecipitationIntensity = "", PrecipitationType = ""
-                    },
-                    Sources = new List<string>() {"Example"},
-                    MobileLink = "Example",
-                    Link = "Example"
-                }
-                
-            }};
-            return Example;
-        }
-        else
-        {
-            Weather News = JsonConvert.DeserializeObject<Weather>(responseBody);
+                        new DailyForecast()
+                        {
+                            Date = DateTime.Now,
+                            EpochDate = 1,
+                            Temperature = new Temperature()
+                            {
+                                Maximum = new Maximum() { Unit = "C", UnitType = 0, Value = 37 },
+                                Minimum = new Minimum() { Unit = "C", UnitType = 0, Value = 21 }
+                            },
+                            Day = new Day()
+                            {
+                                Icon = 1, HasPrecipitation = false, IconPhrase = "Soo Hot", PrecipitationIntensity = "",
+                                PrecipitationType = ""
+                            },
+                            Night = new Night()
+                            {
+                                Icon = 33, HasPrecipitation = false, IconPhrase = "Soo Hot",
+                                PrecipitationIntensity = "", PrecipitationType = ""
+                            },
+                            Sources = new List<string>() { "Example" },
+                            MobileLink = "Example",
+                            Link = "Example"
+                        }
 
-            return News;
+                    }
+                };
+                return Example;
+            }
+            else
+            {
+                Weather News = JsonConvert.DeserializeObject<Weather>(responseBody);
+
+                return News;
+            }
         }
-        
-        
-        
+        catch (Exception ex)
+        {
+            Weather Example = new Weather()
+                            {
+                                Headline = new Headline()
+                                {
+                                    EffectiveDate = DateTime.Now,
+                                    EffectiveEpochDate = 1,
+                                    Severity = 1,
+                                    Text = "test",
+                                    Category = "test",
+                                    EndDate = DateTime.Now.Add(TimeSpan.FromDays(1)),
+                                    EndEpochDate = 1,
+                                    MobileLink = "api",
+                                    Link = "api"
+                                },
+                                DailyForecasts = new List<DailyForecast>()
+                                {
+                                    new DailyForecast()
+                                    {
+                                        Date = DateTime.Now,
+                                        EpochDate = 1,
+                                        Temperature = new Temperature()
+                                        {
+                                            Maximum = new Maximum() { Unit = "C", UnitType = 0, Value = 37 },
+                                            Minimum = new Minimum() { Unit = "C", UnitType = 0, Value = 21 }
+                                        },
+                                        Day = new Day()
+                                        {
+                                            Icon = 1, HasPrecipitation = false, IconPhrase = "Soo Hot", PrecipitationIntensity = "",
+                                            PrecipitationType = ""
+                                        },
+                                        Night = new Night()
+                                        {
+                                            Icon = 33, HasPrecipitation = false, IconPhrase = "Soo Hot",
+                                            PrecipitationIntensity = "", PrecipitationType = ""
+                                        },
+                                        Sources = new List<string>() { "Example" },
+                                        MobileLink = "Example",
+                                        Link = "Example"
+                                    }
+            
+                                }
+                            };
+                            return Example;
+        }
+
+
     }
 
 
