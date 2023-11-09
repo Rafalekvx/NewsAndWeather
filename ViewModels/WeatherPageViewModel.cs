@@ -33,6 +33,8 @@ public partial class WeatherPageViewModel : BaseViewModel
         }
     }
 
+
+    [ObservableProperty] public string _sourcesGet;
     
     
     public WeatherPageViewModel()
@@ -46,13 +48,14 @@ public partial class WeatherPageViewModel : BaseViewModel
     public async void GetList()
     {
 
-        Weather weather = await _weatherService.Get5DailyForecast(274663);
+        Weather weather = await _weatherService.Get5DailyForecast(SelectedLocation.Id);
         
         List<DailyForecast> helperList = weather.DailyForecasts;
     
         if (helperList?.Count > 0)
         {
             Forecasts.Clear();
+            List<string> sourceHelperList = new List<string>(); 
             foreach (DailyForecast forecast in helperList)
             {
                 forecast.Day.IconString = "i" + forecast.Day.Icon.ToString() + ".png";
@@ -60,7 +63,20 @@ public partial class WeatherPageViewModel : BaseViewModel
                 forecast.Night.IconString = "i" +forecast.Night.Icon.ToString() + ".png";
                 
                 Forecasts.Add(forecast);
+                
+                foreach (string source in forecast.Sources)
+                {
+                    if (!(sourceHelperList.Contains(source)))
+                    {
+                        SourcesGet = "";
+                        sourceHelperList.Add(source);
+                        SourcesGet += source;
+                    }
+                }
+                
             }
+            
+            
         }
     }
 
@@ -68,19 +84,12 @@ public partial class WeatherPageViewModel : BaseViewModel
     public async void PrepareLocationPicker()
     {
         List<Location> listOfLocations = await _locationService.GetAllLocations();
-
-        if (listOfLocations is null)
-        {
-            LocationPicker.Add(new Location() { Id = 1 , Name = "test" });
-            
-        }
-        else
-        {
+        
+            listOfLocations = listOfLocations.OrderBy(r => r.Name).ToList();
             foreach (Location loc in listOfLocations)
             {
                 LocationPicker.Add(loc);
             }
-        }
 
     }
     

@@ -21,10 +21,12 @@ public static class MauiProgram
         //Views
         builder.Services.AddScoped<NewsPage>();
         builder.Services.AddScoped<WeatherPage>();
+        builder.Services.AddScoped<DetailNewsPage>();
         
         //ViewModels
         builder.Services.AddScoped<NewsPageViewModel>();
         builder.Services.AddScoped<WeatherPageViewModel>();
+        builder.Services.AddScoped<DetailNewsPageViewModel>();
         
         //Services
         builder.Services.AddScoped<INewsService, NewsService>();

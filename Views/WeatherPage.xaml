@@ -10,10 +10,13 @@
     <ScrollView>
         <VerticalStackLayout>
             
-                <Picker HorizontalOptions="FillAndExpand" 
+                <Picker x:Name="LocationPicker"
+                        HorizontalOptions="FillAndExpand" 
+                        SelectedIndexChanged="LocationPicker_OnSelectedIndexChanged"
                         ItemsSource="{Binding LocationPicker}" 
                         ItemDisplayBinding="{Binding Name}" 
-                        SelectedItem="{Binding SelectedLocation}"></Picker>
+                        SelectedItem="{Binding SelectedLocation}"
+                        ></Picker>
 
         <CollectionView x:Name="ForecastsListView"
                         ItemsSource="{Binding Forecasts}"
@@ -22,7 +25,7 @@
             
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <VerticalStackLayout x:DataType="models:DailyForecast" BackgroundColor="MediumAquamarine" Spacing="10">
+                    <VerticalStackLayout x:DataType="models:DailyForecast" BackgroundColor="#0E8B6D" Spacing="10" Padding="15,15,15,15" Margin="10,10,10,10">
                         <Label Text="{Binding Date, StringFormat='{0: dd.MM.yyyy}'}"  HorizontalOptions="Center" VerticalOptions="Center"></Label>
                         <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="80">
                             <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
@@ -46,13 +49,16 @@
                                 <Label Text="{Binding Temperature.Maximum.Value}"  HorizontalOptions="Center" VerticalOptions="Center"></Label>
                             </VerticalStackLayout>
                         </HorizontalStackLayout>
-                        <BoxView HorizontalOptions="Fill" HeightRequest="40" Color="Beige"></BoxView>
                     </VerticalStackLayout>
                 </DataTemplate>
 
             </CollectionView.ItemTemplate>
 
         </CollectionView>
+            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                <Label Text="Forcasts based on  "></Label>
+                <Label Text="{Binding SourcesGet }"></Label>
+            </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

@@ -15,9 +15,16 @@ public partial class WeatherPage : ContentPage
         InitializeComponent();
         _viewmodel = new WeatherPageViewModel();
         this.BindingContext = _viewmodel;
+        LocationPicker.SelectedIndex = 0;
     }
     
     protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        _viewmodel.GetList();
+    }
+
+    private void LocationPicker_OnSelectedIndexChanged(object sender, EventArgs e)
     {
         base.OnAppearing();
         _viewmodel.GetList();
