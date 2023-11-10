@@ -8,14 +8,18 @@
              xmlns:models="clr-namespace:NewsAndWeather.Models"
              >
     <ScrollView>
+        
         <VerticalStackLayout>
-            
+        
+    
                 <Picker x:Name="LocationPicker"
+                        HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
                         HorizontalOptions="FillAndExpand" 
                         SelectedIndexChanged="LocationPicker_OnSelectedIndexChanged"
                         ItemsSource="{Binding LocationPicker}" 
                         ItemDisplayBinding="{Binding Name}" 
                         SelectedItem="{Binding SelectedLocation}"
+                        
                         ></Picker>
 
         <CollectionView x:Name="ForecastsListView"

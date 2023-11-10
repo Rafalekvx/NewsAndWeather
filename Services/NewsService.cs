@@ -8,7 +8,7 @@ public class NewsService : INewsService
 {
     private HttpClient _client = new HttpClient();
 
-    private string url ="http://localhost:5011";
+    private string url ="https://newsandweatherapi1.azurewebsites.net";
     
     
     public async Task<Post> GetOneNews(int id)
