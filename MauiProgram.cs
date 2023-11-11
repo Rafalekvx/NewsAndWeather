@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Maui;
+using Microsoft.Extensions.Logging;
 using NewsAndWeather.Services;
 using NewsAndWeather.ViewModels;
 using NewsAndWeather.Views;
@@ -12,11 +13,19 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-            });
+            })
+            .ConfigureMauiHandlers(handlers =>
+            {
+            #if ANDROID 
+                handlers.AddHandler(typeof(Picker), typeof(NewsAndWeather.MyPickerHandler));
+            #endif
+            })
+            ;
 
         //Views
         builder.Services.AddScoped<NewsPage>();
@@ -33,10 +42,9 @@ public static class MauiProgram
         builder.Services.AddScoped<IWeatherService, WeatherService>();
         builder.Services.AddScoped<ILocationService, LocationService>();
         
-        
-#if DEBUG
+        #if DEBUG
         builder.Logging.AddDebug();
-#endif
+        #endif
 
         return builder.Build();
     }

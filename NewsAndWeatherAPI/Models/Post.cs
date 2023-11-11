@@ -6,5 +6,6 @@ public class Post
     public string Title { get; set; }
     public string Description { get; set; }
     public string ImageLink { get; set; }
-    
+    public DateTime CreatedDate { get; set; }
+    public List<LinkCategoryToNews> CategoriesToNews { get; set; }
 }

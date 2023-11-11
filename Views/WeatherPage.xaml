@@ -8,16 +8,25 @@
              xmlns:models="clr-namespace:NewsAndWeather.Models"
              >
     <ScrollView>
-        <VerticalStackLayout>
+        <VerticalStackLayout Spacing="10">
+                <Label Text="5 Days forecast" TextTransform="Uppercase" FontSize="30" Margin="10,20,10,10"
+                       HorizontalOptions="Center" VerticalOptions="Center"></Label>
             
-                <Picker x:Name="LocationPicker"
+                <Label Text="Choose where you want to check the weather" HorizontalOptions="Center" VerticalOptions="Center" ></Label>
+            <Border StrokeThickness="2"
+                    StrokeShape="RoundRectangle 60,60,60,60"
+                    BackgroundColor="{StaticResource MyColor}"
+                    Stroke="{StaticResource MyColor}">
+                <Picker x:Name="LocationPicker" Title="Choose where you want to check the weather" FontSize="20"
+                        HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
                         HorizontalOptions="FillAndExpand" 
                         SelectedIndexChanged="LocationPicker_OnSelectedIndexChanged"
                         ItemsSource="{Binding LocationPicker}" 
                         ItemDisplayBinding="{Binding Name}" 
                         SelectedItem="{Binding SelectedLocation}"
                         ></Picker>
-
+            </Border>
+            
         <CollectionView x:Name="ForecastsListView"
                         ItemsSource="{Binding Forecasts}"
                         SelectionMode="None"
@@ -25,9 +34,14 @@
             
             <CollectionView.ItemTemplate>
                 <DataTemplate>
+                    <Border StrokeThickness="4"
+                            StrokeShape="RoundRectangle 30,30,30,30"
+                            BackgroundColor="{StaticResource MyColor}"
+                            Stroke="{StaticResource MyColor}"
+                    >
                     <VerticalStackLayout x:DataType="models:DailyForecast" BackgroundColor="#0E8B6D" Spacing="10" Padding="15,15,15,15" Margin="10,10,10,10">
                         <Label Text="{Binding Date, StringFormat='{0: dd.MM.yyyy}'}"  HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="80">
+                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="50">
                             <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
                                 <Label Text="Day" HorizontalOptions="Center" VerticalOptions="Center"></Label>
                                 <Image Source="{Binding Day.IconString}"  HorizontalOptions="Center" VerticalOptions="Center"></Image>
@@ -50,6 +64,7 @@
                             </VerticalStackLayout>
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
+                    </Border>
                 </DataTemplate>
 
             </CollectionView.ItemTemplate>

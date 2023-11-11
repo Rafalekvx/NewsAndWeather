@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NewsAndWeather.Models;
 using NewsAndWeather.Services;
@@ -9,6 +10,15 @@ namespace NewsAndWeather.ViewModels;
 public partial class NewsPageViewModel : BaseViewModel
 {
     public ObservableCollection<Post> Posts { get; }
+
+    [ObservableProperty] 
+    public Post _lastestPost;
+
+    public Post lastestPost
+    {
+        get { return LastestPost;}
+        set { LastestPost = value; }
+    }
 
     public INewsService _newsService => DependencyService.Get<INewsService>();
     
@@ -27,12 +37,16 @@ public partial class NewsPageViewModel : BaseViewModel
         
         if (helperList?.Count > 0)
         {
+            helperList = helperList.OrderByDescending(a=> a.ID).ToList();
             Posts.Clear();
             foreach (Post post in helperList)
             {
                 Posts.Add(post);
             }
         }
+
+        lastestPost = helperList.Last();
+
     }
     
     async void OnItemSelected(Post post)

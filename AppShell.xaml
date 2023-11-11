@@ -8,12 +8,13 @@
     Shell.NavBarIsVisible="False"
     xmlns:views="clr-namespace:NewsAndWeather.Views"
     >
+    
 
     <TabBar>
-        <Tab Title="News">
+        <Tab Title="News" Icon="newspaper.png">
             <ShellContent ContentTemplate="{DataTemplate views:NewsPage}" />
         </Tab>
-        <Tab Title="Weather">
+        <Tab Title="Weather" Icon="weathericon.png">
             <ShellContent ContentTemplate="{DataTemplate views:WeatherPage}" />
         </Tab>
     </TabBar>

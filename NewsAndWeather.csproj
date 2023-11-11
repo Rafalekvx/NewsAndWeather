@@ -49,6 +49,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Maui" Version="6.1.0" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0"/>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -72,6 +73,12 @@
 
     <ItemGroup>
       <None Remove="NewsAndWeatherAPI\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Mono.Android">
+        <HintPath>C:\Program Files\dotnet\packs\Microsoft.Android.Ref.33\33.0.46\ref\net7.0\Mono.Android.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>
