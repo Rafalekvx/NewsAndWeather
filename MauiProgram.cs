@@ -18,6 +18,8 @@ public static class MauiProgram
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                fonts.AddFont("SourceSans3-Italic-VariableFont_wght.ttf, SourceSans3-Italic");
+                fonts.AddFont("SourceSans3-VariableFont_wght.ttf, SourceSans3");
             })
             .ConfigureMauiHandlers(handlers =>
             {
@@ -41,6 +43,9 @@ public static class MauiProgram
         builder.Services.AddScoped<INewsService, NewsService>();
         builder.Services.AddScoped<IWeatherService, WeatherService>();
         builder.Services.AddScoped<ILocationService, LocationService>();
+        builder.Services.AddScoped<IUserServices, UserServices>();
+        builder.Services.AddScoped<ICategoriesService, CategoriesService>();
+        
         
         #if DEBUG
         builder.Logging.AddDebug();

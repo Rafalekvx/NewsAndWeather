@@ -8,14 +8,21 @@
              x:DataType="viewmodels:DetailNewsPageViewModel">
        
        
-       <VerticalStackLayout x:DataType="models:Post">
-        <Label FontAttributes="Bold" TextTransform="Uppercase" 
-               Text="{Binding Title}" 
+       <VerticalStackLayout x:DataType="models:NewsView" Spacing="5">
+       <Image Aspect="AspectFit" Source="{Binding ImageLink}" 
+              HorizontalOptions="Center" VerticalOptions="Center" Margin="0,5,0,5"></Image>
+       <Label FontAttributes="Bold" TextTransform="Uppercase" 
+              Text="{Binding Title}" FontSize="20" 
+              VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+              HorizontalOptions="Center" VerticalOptions="Center" Margin="0,10,0,10"></Label>
+        <Label Text="{Binding Description}" FontSize="15"  LineBreakMode="WordWrap" 
+               VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
                HorizontalOptions="Center" VerticalOptions="Center"></Label>
-        <Image Aspect="AspectFit" Source="{Binding ImageLink}" 
-               HorizontalOptions="Center" VerticalOptions="Center" Margin="5,5,5,5"></Image>
-        <Label Text="{Binding Description}"  LineBreakMode="WordWrap"
-               HorizontalOptions="Center" VerticalOptions="Center"></Label>
+              
+       <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Margin="0,20,0,0">
+              <Label Text="Author of article "></Label>
+              <Label Text="{Binding CreatedBy.Name}"></Label>
+       </HorizontalStackLayout>
     </VerticalStackLayout>
        
        

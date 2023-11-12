@@ -4,6 +4,6 @@ namespace NewsAndWeather.Services;
 
 public interface INewsService
 {
-    Task<Post> GetOneNews(int id);
-    Task<List<Post>> GetAllNews();
+    Task<NewsView> GetOneNews(int id);
+    Task<List<NewsView>> GetAllNews();
 }

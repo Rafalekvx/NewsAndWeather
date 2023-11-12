@@ -9,12 +9,12 @@ namespace NewsAndWeather.ViewModels;
 
 public partial class NewsPageViewModel : BaseViewModel
 {
-    public ObservableCollection<Post> Posts { get; }
+    public ObservableCollection<NewsView> Posts { get; }
 
     [ObservableProperty] 
-    public Post _lastestPost;
+    public NewsView _lastestPost;
 
-    public Post lastestPost
+    public NewsView lastestPost
     {
         get { return LastestPost;}
         set { LastestPost = value; }
@@ -22,24 +22,24 @@ public partial class NewsPageViewModel : BaseViewModel
 
     public INewsService _newsService => DependencyService.Get<INewsService>();
     
-    public Command<Post> ItemTapped { get; }
+    public Command<NewsView> ItemTapped { get; }
     
     public NewsPageViewModel()
     {
-        Posts = new ObservableCollection<Post>();
-        ItemTapped = new Command<Post>(OnItemSelected);
+        Posts = new ObservableCollection<NewsView>();
+        ItemTapped = new Command<NewsView>(OnItemSelected);
     }
 
     [RelayCommand]
     public async void GetList()
     {
-        List<Post> helperList = await _newsService.GetAllNews();
+        List<NewsView> helperList = await _newsService.GetAllNews();
         
         if (helperList?.Count > 0)
         {
             helperList = helperList.OrderByDescending(a=> a.ID).ToList();
             Posts.Clear();
-            foreach (Post post in helperList)
+            foreach (NewsView post in helperList)
             {
                 Posts.Add(post);
             }
@@ -49,7 +49,7 @@ public partial class NewsPageViewModel : BaseViewModel
 
     }
     
-    async void OnItemSelected(Post post)
+    public async void OnItemSelected(NewsView post)
     {
         if (post == null)
         {
@@ -59,6 +59,7 @@ public partial class NewsPageViewModel : BaseViewModel
         await Shell.Current.GoToAsync($"{nameof(DetailNewsPage)}?{nameof(DetailNewsPageViewModel.ItemId)}={post.ID}");
 
     }
+    
     
     
     

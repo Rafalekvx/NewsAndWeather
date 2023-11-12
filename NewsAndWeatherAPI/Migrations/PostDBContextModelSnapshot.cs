@@ -84,6 +84,9 @@ namespace NewsAndWeatherAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
+                    b.Property<int?>("CreatedById")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -101,7 +104,37 @@ namespace NewsAndWeatherAPI.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("CreatedById");
+
                     b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("NewsAndWeatherAPI.Models.User", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("NewsAndWeatherAPI.Models.LinkCategoryToNews", b =>
@@ -121,6 +154,15 @@ namespace NewsAndWeatherAPI.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("NewsAndWeatherAPI.Models.Post", b =>
+                {
+                    b.HasOne("NewsAndWeatherAPI.Models.User", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
+
+                    b.Navigation("CreatedBy");
                 });
 
             modelBuilder.Entity("NewsAndWeatherAPI.Models.Category", b =>

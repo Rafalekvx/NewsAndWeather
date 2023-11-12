@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NewsAndWeatherAPI.Entities;
 using NewsAndWeatherAPI.Models;
 using NewsAndWeatherAPI.Services;
 
@@ -34,6 +35,15 @@ public class PostController : ControllerBase
         List<Post> listOfPosts = _newsService.GetAll();
 
         return Ok(listOfPosts);
+    }
+
+    [Route("new")]
+    [HttpPost]
+    public ActionResult AddNews([FromBody]NewsAddDto dto)
+    {
+        _newsService.AddNews(dto);
+
+        return Ok();
     }
     
 }

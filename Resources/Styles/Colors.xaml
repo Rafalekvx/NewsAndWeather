@@ -5,7 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <!-- My Colors -->
-    <Color x:Key="DarkThemeBackground">#353535</Color>
+    <Color x:Key="DarkThemeBackground">#161616</Color>
+    <Color x:Key="BackgroundAndBorder">#323232</Color>
     <Color x:Key="MyColor">#0E8B6D</Color>
     
     

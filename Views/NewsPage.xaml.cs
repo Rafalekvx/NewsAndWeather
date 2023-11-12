@@ -21,4 +21,10 @@ public partial class NewsPage : ContentPage
         base.OnAppearing();
         _viewmodel.GetList();
     }
+
+    private void Button_OnClicked(object sender, EventArgs e)
+    {
+        base.OnAppearing();
+        _viewmodel.OnItemSelected(_viewmodel.LastestPost);
+    }
 }

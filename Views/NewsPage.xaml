@@ -8,28 +8,41 @@
              xmlns:models="clr-namespace:NewsAndWeather.Models"
              x:DataType="viewmodels:NewsPageViewModel">
     <ContentPage.Behaviors>
-        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource MyColor}" StatusBarStyle="LightContent" />
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource BackgroundAndBorder}" StatusBarStyle="LightContent" />
     </ContentPage.Behaviors>
     
     <ScrollView>
         <VerticalStackLayout Spacing="20">
-            <VerticalStackLayout BackgroundColor="#323232" Spacing="20" >
-                <Label Text="Top Headlines" FontSize="30" Margin="10,30,10,10"
-                       HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                <VerticalStackLayout>
+            <VerticalStackLayout Spacing="10" >
+                <VerticalStackLayout BackgroundColor="{StaticResource BackgroundAndBorder}">
+                    <Label Text="Top Headlines" FontSize="20" Margin="10,10,10,10" FontFamily="SourceSans3" FontAttributes="Bold"
+                           HorizontalOptions="Center" VerticalOptions="Center"></Label>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout >
                     <Image Aspect="AspectFill" Source="{Binding LastestPost.ImageLink}" 
-                           HorizontalOptions="Fill" VerticalOptions="Fill" Margin="5,5,5,5"></Image>
-                        <HorizontalStackLayout>
-                           <Label Text="Date" HorizontalOptions="Start" Margin="40,0,0,0"></Label>
-                            <Label Text="Category" HorizontalOptions="End" Margin="0,0,40,0"></Label>
-                        </HorizontalStackLayout>
+                           HorizontalOptions="Fill" VerticalOptions="Fill" Margin="0,10,0,5"></Image>
+                        <Grid ColumnDefinitions="*,*,*" Margin="0,10,0,30">
+                            <Label Text="{Binding LastestPost.CreatedBy.Name}" 
+                                   Grid.Column="0" HorizontalTextAlignment="Start"
+                                   Margin="10,0,40,0"></Label>
+                            <Label Text="{Binding LastestPost.Categories[0].Name}" 
+                                   Grid.Column="1" HorizontalTextAlignment="Center"
+                                   Margin="40,0,40,0"></Label>
+                            <Label Text="{Binding LastestPost.CreatedDate, StringFormat='{0: dd.MM.yyyy}'}" 
+                                   Grid.Column="2" HorizontalTextAlignment="End" 
+                                   Margin="0,0,10,0"></Label>
+                        </Grid>
                     <Label FontAttributes="Bold" TextTransform="Uppercase" 
-                           VerticalTextAlignment="Center"
-                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
                            Text="{Binding LastestPost.Title}" 
                            HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                    <Label Text="{Binding LastestPost.Description}"  LineBreakMode="WordWrap" MaxLines="5"
+                    <Label Text="{Binding LastestPost.Description}" 
+                           VerticalTextAlignment="Center" HorizontalTextAlignment="Center" 
+                           LineBreakMode="WordWrap" MaxLines="4"
                            HorizontalOptions="Center" VerticalOptions="Start"></Label>
+                    <Button Text="Read More >" Clicked="Button_OnClicked"
+                            BackgroundColor="{StaticResource DarkThemeBackground}" TextColor="White"></Button>
                 </VerticalStackLayout>
             </VerticalStackLayout>
         <CollectionView x:Name="PostsListView"
@@ -42,26 +55,27 @@
                                 StrokeShape="RoundRectangle 30,30,30,30"
                                 BackgroundColor="{StaticResource Gray600}"
                                 Padding="15,15,15,15" Margin="10,10,10,10"
-                                Stroke="{StaticResource MyColor}"
+                                Stroke="{StaticResource BackgroundAndBorder}"
                         >
                         <VerticalStackLayout  BackgroundColor="{StaticResource Gray600}"  >
-                        <Grid x:DataType="models:Post" 
-                              RowDefinitions="*,*,auto,auto" 
-                              ColumnDefinitions="*,*,*,*" 
+                        <Grid x:DataType="models:NewsView" 
+                              RowDefinitions="*,auto" 
+                              ColumnDefinitions="*,*,*" 
                               RowSpacing="20" >
+                            
+                        <Image Aspect="AspectFill" Source="{Binding ImageLink}" 
+                               Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
+                               HorizontalOptions="Fill" VerticalOptions="Fill" Margin="5,5,5,5"></Image>
                         <Label FontAttributes="Bold" TextTransform="Uppercase" 
                                VerticalTextAlignment="Center"
                                HorizontalTextAlignment="Center"
                                Text="{Binding Title}" 
-                               Grid.Row="0" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="4" 
+                               Grid.Row="0" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="2" 
                                HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                        <Label Text="{Binding Description}"  LineBreakMode="WordWrap" MaxLines="5"
-                               Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="2" 
+                        <Label Text="{Binding Description}"  LineBreakMode="WordWrap" MaxLines="3"
+                               Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" 
+                               HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
                                HorizontalOptions="Center" VerticalOptions="Start"></Label>
-                            
-                        <Image Aspect="AspectFill" Source="{Binding ImageLink}" 
-                               Grid.Row="1" Grid.RowSpan="4" Grid.Column="2" Grid.ColumnSpan="2" 
-                               HorizontalOptions="Fill" VerticalOptions="Fill" Margin="5,5,5,5"></Image>
                             
                            <Grid.GestureRecognizers> 
                         <TapGestureRecognizer NumberOfTapsRequired="1"

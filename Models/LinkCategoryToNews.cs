@@ -1,4 +1,4 @@
-﻿namespace NewsAndWeatherAPI.Models;
+﻿namespace NewsAndWeather.Models;
 
 public class LinkCategoryToNews
 {

@@ -10,6 +10,8 @@ public class NAWDBContext : DbContext
     
     public DbSet<Post> Posts { get; set; }
     
+    public DbSet<User> Users { get; set; }
+    
     public DbSet<Location> Locations { get; set; }
     
     public DbSet<Category> Categories { get; set; }
@@ -18,16 +20,10 @@ public class NAWDBContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<LinkCategoryToNews>()
-            .HasOne(b => b.Post)
-            .WithMany(ba => ba.CategoriesToNews)
-            .HasForeignKey(bi => bi.PostID);
-        
-        modelBuilder.Entity<LinkCategoryToNews>()
-            .HasOne(b => b.Category)
-            .WithMany(ba => ba.CategoriesToNews)
-            .HasForeignKey(bi => bi.CategoryID);
-        
+
+        modelBuilder.Entity<User>().Property(r => r.Name).IsRequired();
+        modelBuilder.Entity<User>().Property(r => r.Email).IsRequired();
+        modelBuilder.Entity<User>().Property(r => r.Password).IsRequired();
         
         modelBuilder.Entity<Post>().Property(r => r.Title).IsRequired();
         modelBuilder.Entity<Post>().Property(r => r.ID).IsRequired();

@@ -10,8 +10,10 @@ public class NewsService : INewsService
 
     private string url ="https://newsandweatherapi1.azurewebsites.net";
     
+    private IUserServices _userServices => DependencyService.Get<IUserServices>();
+    private ICategoriesService _categoriesService => DependencyService.Get<ICategoriesService>();
     
-    public async Task<Post> GetOneNews(int id)
+    public async Task<NewsView> GetOneNews(int id)
     {
         string requestUrl = $"/api/news/{id}";
         try
@@ -23,16 +25,33 @@ public class NewsService : INewsService
 
             Post News = JsonConvert.DeserializeObject<Post>(responseBody);
 
-            return News;
+            NewsView newsView = new NewsView()
+            {
+                Title = News.Title,
+                Description = News.Description,
+                ImageLink = News.ImageLink,
+                CreatedDate = News.CreatedDate,
+                CreatedById = News.CreatedById,
+                CreatedBy = _userServices.GetUserById(News.CreatedById).Result,
+                CategoriesToNews = News.CategoriesToNews,
+                Categories = new List<Category>()
+            };
+
+            foreach (var categoriesTo in newsView.CategoriesToNews)
+            {
+                newsView.Categories.Add(_categoriesService.GetById(categoriesTo.CategoryID).Result);
+            }
+            
+            return newsView;
         }
 
         catch (Exception ex)
         {
-            return new Post() { ID  = 0, Title = "Api is off", Description = "Sadeg", ImageLink = "https://i.imgur.com/Lg8jnn6.png"};
+            return new NewsView() { ID  = 0, Title = "Api is off", Description = "Sadeg", ImageLink = "https://i.imgur.com/Lg8jnn6.png"};
         }
     }
 
-    public async Task<List<Post>> GetAllNews()
+    public async Task<List<NewsView>> GetAllNews()
     {
         string requestUrl = "/api/news";
 
@@ -43,8 +62,34 @@ public class NewsService : INewsService
             string responseBody = await responseMsg.Content.ReadAsStringAsync();
 
 
-            List<Post> listOfNews = JsonConvert.DeserializeObject<List<Post>>(responseBody);
+            List<Post> listOfPost = JsonConvert.DeserializeObject<List<Post>>(responseBody);
 
+            List<NewsView> listOfNews = new List<NewsView>();
+            foreach (var News in listOfPost)
+            {
+                
+                NewsView newsView = new NewsView()
+                {
+                    ID = News.ID,
+                    Title = News.Title,
+                    Description = News.Description,
+                    ImageLink = News.ImageLink,
+                    CreatedDate = News.CreatedDate,
+                    CreatedById = News.CreatedById,
+                    CreatedBy = await _userServices.GetUserById(News.CreatedById),
+                    CategoriesToNews = News.CategoriesToNews,
+                    Categories = new List<Category>()
+                };
+                
+                
+                foreach (var categoriesTo in newsView.CategoriesToNews)
+                {
+                    newsView.Categories.Add(_categoriesService.GetById(categoriesTo.CategoryID).Result);
+                }
+                
+                listOfNews.Add(newsView);
+            }
+            
             return listOfNews;
 
         }
@@ -52,9 +97,9 @@ public class NewsService : INewsService
         catch
         {
             
-            List<Post> posts = new List<Post>() { new Post() { ID = 1, Title = "Jeden", Description="Wiecej niz jeden", ImageLink="Linkacz" },
-                new Post() { ID = 2, Title = "Dwa", Description = "Wiecej niz dwa", ImageLink = "Linkacz" } ,
-                new Post() { ID = 3, Title = "Trzy", Description="Wiecej niz trzy", ImageLink="Linkacz" } };
+            List<NewsView> posts = new List<NewsView>() { new NewsView() { ID = 1, Title = "Jeden", Description="Wiecej niz jeden", ImageLink="Linkacz" },
+                new NewsView() { ID = 2, Title = "Dwa", Description = "Wiecej niz dwa", ImageLink = "Linkacz" } ,
+                new NewsView() { ID = 3, Title = "Trzy", Description="Wiecej niz trzy", ImageLink="Linkacz" } };
 
             return posts;
             
