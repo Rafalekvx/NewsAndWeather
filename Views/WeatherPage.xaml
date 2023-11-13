@@ -36,33 +36,47 @@
                 <DataTemplate>
                     <Border StrokeThickness="4"
                             StrokeShape="RoundRectangle 30,30,30,30"
-                            BackgroundColor="{StaticResource MyColor}"
+                            BackgroundColor="{StaticResource BackgroundAndBorder}"
                             Stroke="{StaticResource MyColor}"
                     >
-                    <VerticalStackLayout x:DataType="models:DailyForecast" BackgroundColor="#0E8B6D" Spacing="10" Padding="15,15,15,15" Margin="10,10,10,10">
-                        <Label Text="{Binding Date, StringFormat='{0: dd.MM.yyyy}'}"  HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="50">
-                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
-                                <Label Text="Day" HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                                <Image Source="{Binding Day.IconString}"  HorizontalOptions="Center" VerticalOptions="Center"></Image>
-                            <Label Text="{Binding Day.IconPhrase}" HorizontalOptions="Center" VerticalOptions="Center"></Label>
+                    <VerticalStackLayout x:DataType="models:DailyForecast" BackgroundColor="{StaticResource BackgroundAndBorder}" Spacing="20" Padding="15,15,15,15" Margin="10,10,10,10">
+                        <Label Text="{Binding Date, StringFormat='{0: dd.MM.yyyy}'}" 
+                               FontSize="20" FontAttributes="Bold" 
+                               HorizontalOptions="Center" VerticalOptions="Center"></Label>
+                        <Grid ColumnDefinitions="*,*">
+                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5" Grid.Column="0">
+                                <Label Text="Day" TextTransform="Uppercase"
+                                       HorizontalOptions="Center" VerticalOptions="Center" 
+                                       FontSize="18" FontAttributes="Bold"></Label>
+                                <Image Source="{Binding Day.IconString}"  
+                                       HorizontalOptions="Center" VerticalOptions="Center"></Image>
+                            <Label Text="{Binding Day.IconPhrase}" 
+                                   HorizontalOptions="Center" VerticalOptions="Center"></Label>
+                                <Label Text="Max Temperature" 
+                                       HorizontalOptions="Center" VerticalOptions="Center"></Label>
+                                <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                <Label Text="{Binding Temperature.Maximum.Value}" 
+                                       FontSize="18"></Label>
+                                <Label Text="℃" FontSize="18"></Label>
+                                    </HorizontalStackLayout>
                                 </VerticalStackLayout>
-                                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
-                                    <Label Text="Night" HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                                    <Image Source="{Binding Night.IconString}"  HorizontalOptions="Center" VerticalOptions="Center"></Image>
-                            <Label Text="{Binding Night.IconPhrase}" HorizontalOptions="Center" VerticalOptions="Center"></Label>
+                                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center"  Spacing="5" Grid.Column="1">
+                                    <Label Text="Night" TextTransform="Uppercase"
+                                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center" 
+                                           FontSize="18" FontAttributes="Bold"></Label>
+                                    <Image Source="{Binding Night.IconString}"  ></Image>
+                                    
+                                    <Label Text="{Binding Night.IconPhrase}" 
+                                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+                                    <Label Text="Min Temperature" 
+                                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+                                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Label Text="{Binding Temperature.Minimum.Value}" 
+                                           FontSize="18"></Label>
+                                        <Label Text="℃" FontSize="18"></Label>
+                                    </HorizontalStackLayout>
                             </VerticalStackLayout>
-                        </HorizontalStackLayout>
-                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="30">
-                            <VerticalStackLayout HorizontalOptions="Start" Spacing="10">
-                                <Label Text="Minimum Temperature" HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                                <Label Text="{Binding Temperature.Minimum.Value}"  HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                            </VerticalStackLayout>
-                            <VerticalStackLayout HorizontalOptions="End" Spacing="10">
-                                <Label Text="Maxiumum Temperature" HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                                <Label Text="{Binding Temperature.Maximum.Value}"  HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                            </VerticalStackLayout>
-                        </HorizontalStackLayout>
+                        </Grid>
                     </VerticalStackLayout>
                     </Border>
                 </DataTemplate>
