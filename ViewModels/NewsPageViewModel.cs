@@ -10,6 +10,8 @@ namespace NewsAndWeather.ViewModels;
 public partial class NewsPageViewModel : BaseViewModel
 {
     public ObservableCollection<NewsView> Posts { get; }
+    
+    public ObservableCollection<Category> CategoriesList { get; }
 
     [ObservableProperty] 
     public NewsView _lastestPost;
@@ -21,13 +23,16 @@ public partial class NewsPageViewModel : BaseViewModel
     }
 
     public INewsService _newsService => DependencyService.Get<INewsService>();
-    
+    public ICategoriesService _categoriesService => DependencyService.Get<ICategoriesService>();
     public Command<NewsView> ItemTapped { get; }
+    public Command<Category> CategoryTapped { get; }
     
     public NewsPageViewModel()
     {
         Posts = new ObservableCollection<NewsView>();
+        CategoriesList = new ObservableCollection<Category>();
         ItemTapped = new Command<NewsView>(OnItemSelected);
+        CategoryTapped = new Command<Category>(FiltrBy);
     }
 
     [RelayCommand]
@@ -37,17 +42,74 @@ public partial class NewsPageViewModel : BaseViewModel
         
         if (helperList?.Count > 0)
         {
-            helperList = helperList.OrderByDescending(a=> a.ID).ToList();
+            helperList = helperList.OrderByDescending(a=> a.CreatedDate).ToList();
             Posts.Clear();
             foreach (NewsView post in helperList)
             {
                 Posts.Add(post);
             }
+            lastestPost = helperList.First();
+            Posts.Remove(Posts.First());
         }
 
-        lastestPost = helperList.Last();
+    }
+
+    [RelayCommand]
+    public async void GetCategoriesList()
+    {
+        List<Category> helperList = await _categoriesService.GetAllCategories();
+        
+        if (helperList?.Count > 0)
+        {
+            helperList = helperList.OrderByDescending(a=> a.Name).ToList();
+            CategoriesList.Clear();
+            foreach (Category category in helperList)
+            {
+                CategoriesList.Add(category);
+            }
+        }
+        
+    }
+    
+    [RelayCommand]
+    public async void FiltrBy(Category category)
+    {
+        List<NewsView> newsHelperList = await _newsService.GetAllNews();
+        List<NewsView> helperList = new List<NewsView>();
+        
+        foreach (var news in newsHelperList)
+        {
+            bool contains = false;
+            foreach(var categ in news.Categories) 
+            {
+                if (categ.ID == category.ID)
+                {
+                    contains = true;
+                }
+            }
+
+            if (contains)
+            {
+                helperList.Add( news);
+            }
+            
+        }
+
+        if (helperList?.Count > 0)
+        {
+            helperList = helperList.OrderByDescending(a=> a.CreatedDate).ToList();
+            Posts.Clear();
+            foreach (NewsView post in helperList)
+            {
+                Posts.Add(post);
+            }
+            lastestPost = helperList.First();
+            Posts.Remove(Posts.First());
+        }
+        
 
     }
+    
     
     public async void OnItemSelected(NewsView post)
     {

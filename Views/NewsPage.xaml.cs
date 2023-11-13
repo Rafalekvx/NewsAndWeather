@@ -20,6 +20,7 @@ public partial class NewsPage : ContentPage
     {
         base.OnAppearing();
         _viewmodel.GetList();
+        _viewmodel.GetCategoriesList();
     }
 
     private void Button_OnClicked(object sender, EventArgs e)

@@ -18,6 +18,27 @@
                     <Label Text="Top Headlines" FontSize="20" Margin="10,10,10,10" FontFamily="SourceSans3" FontAttributes="Bold"
                            HorizontalOptions="Center" VerticalOptions="Center"></Label>
                 </VerticalStackLayout>
+                <ScrollView Orientation="Both" HorizontalScrollBarVisibility="Always">
+                    <CollectionView x:Name="CategoriesList"
+                                    ItemsSource="{Binding CategoriesList }"
+                                    ItemsLayout="HorizontalList" 
+                                    SelectionMode="None">
+                        
+                        <CollectionView.ItemTemplate >
+                            <DataTemplate x:DataType="models:Category">
+                                <Label Text="{Binding Name}" FontSize="15" 
+                                       Margin="10,5,10,5">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:NewsPageViewModel}}, Path=CategoryTapped}"
+                                                              CommandParameter="{Binding .}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </ScrollView>
+                
 
                 <VerticalStackLayout >
                     <Image Aspect="AspectFill" Source="{Binding LastestPost.ImageLink}" 
@@ -34,6 +55,7 @@
                                    Margin="0,0,10,0"></Label>
                         </Grid>
                     <Label FontAttributes="Bold" TextTransform="Uppercase" 
+                           Margin="0,0,0,30"
                            VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
                            Text="{Binding LastestPost.Title}" 
                            HorizontalOptions="Center" VerticalOptions="Center"></Label>
@@ -41,8 +63,16 @@
                            VerticalTextAlignment="Center" HorizontalTextAlignment="Center" 
                            LineBreakMode="WordWrap" MaxLines="4"
                            HorizontalOptions="Center" VerticalOptions="Start"></Label>
-                    <Button Text="Read More >" Clicked="Button_OnClicked"
-                            BackgroundColor="{StaticResource DarkThemeBackground}" TextColor="White"></Button>
+                    <Label Text="Read More > " 
+                           VerticalTextAlignment="Center" HorizontalTextAlignment="Center" 
+                            HorizontalOptions="Center" VerticalOptions="Start"
+                            BackgroundColor="{StaticResource DarkThemeBackground}" TextColor="White">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="Button_OnClicked"
+                                NumberOfTapsRequired="1" />
+                        </Label.GestureRecognizers>
+                    </Label>
                 </VerticalStackLayout>
             </VerticalStackLayout>
         <CollectionView x:Name="PostsListView"
