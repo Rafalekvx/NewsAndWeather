@@ -9,6 +9,7 @@ namespace NewsAndWeather.ViewModels;
 
 public partial class NewsPageViewModel : BaseViewModel
 {
+    public List<NewsView> PostsOneTake { get; set; }
     public ObservableCollection<NewsView> Posts { get; }
     
     public ObservableCollection<Category> CategoriesList { get; }
@@ -33,6 +34,7 @@ public partial class NewsPageViewModel : BaseViewModel
         CategoriesList = new ObservableCollection<Category>();
         ItemTapped = new Command<NewsView>(OnItemSelected);
         CategoryTapped = new Command<Category>(FiltrBy);
+        PostsOneTake = _newsService.GetAllNews().Result.OrderByDescending(a=> a.CreatedDate).ToList();
     }
 
     [RelayCommand]
@@ -50,6 +52,7 @@ public partial class NewsPageViewModel : BaseViewModel
             }
             lastestPost = helperList.First();
             Posts.Remove(Posts.First());
+
         }
 
     }
@@ -74,7 +77,7 @@ public partial class NewsPageViewModel : BaseViewModel
     [RelayCommand]
     public async void FiltrBy(Category category)
     {
-        List<NewsView> newsHelperList = await _newsService.GetAllNews();
+        List<NewsView> newsHelperList = PostsOneTake;
         List<NewsView> helperList = new List<NewsView>();
         
         foreach (var news in newsHelperList)
