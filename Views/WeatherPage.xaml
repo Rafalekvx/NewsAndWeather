@@ -76,9 +76,9 @@
                                 <Image Source="{Binding Day.IconString}"  
                                        HorizontalOptions="Center" VerticalOptions="Center"></Image>
                             <Label Text="{Binding Day.IconPhrase}" FontFamily="Roboto" FontSize="15"
-                                   HorizontalOptions="Center" VerticalOptions="Center"></Label>
+                                   HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
                                 <Label Text="Max Temperature" FontFamily="Roboto" FontSize="16"
-                                       HorizontalOptions="Center" VerticalOptions="Center"></Label>
+                                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
                                 <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
                                 <Label Text="{Binding Temperature.Maximum.Value}" FontFamily="RobotoCondensed-Regular"
                                        FontSize="18"></Label>

@@ -14,6 +14,8 @@ public partial class NewsPageViewModel : BaseViewModel
     
     public ObservableCollection<Category> CategoriesList { get; }
 
+    private DateTime lastestUpdate;
+    
     [ObservableProperty] 
     public NewsView _lastestPost;
 
@@ -35,13 +37,22 @@ public partial class NewsPageViewModel : BaseViewModel
         ItemTapped = new Command<NewsView>(OnItemSelected);
         CategoryTapped = new Command<Category>(FiltrBy);
         PostsOneTake = _newsService.GetAllNews().Result.OrderByDescending(a=> a.CreatedDate).ToList();
+        lastestUpdate = DateTime.Now;
     }
 
     [RelayCommand]
     public async void GetList()
     {
-        List<NewsView> helperList = await _newsService.GetAllNews();
+        List<NewsView> helperList = new List<NewsView>();
         
+        if(lastestUpdate.AddMinutes(10) <= DateTime.Now){
+            helperList = await _newsService.GetAllNews();
+            lastestUpdate = DateTime.Now;
+        }
+        else
+        { 
+            helperList = PostsOneTake;
+        }
         if (helperList?.Count > 0)
         {
             helperList = helperList.OrderByDescending(a=> a.CreatedDate).ToList();
