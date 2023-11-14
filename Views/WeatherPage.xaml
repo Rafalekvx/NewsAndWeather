@@ -8,25 +8,31 @@
              xmlns:models="clr-namespace:NewsAndWeather.Models"
              >
     <ScrollView>
+        <!-- Header -->
         <VerticalStackLayout Spacing="10">
-                <Label Text="5 Days forecast" TextTransform="Uppercase" FontSize="30" Margin="10,20,10,10"
+                <Label Text="5 Days forecast" FontFamily="SourceSans3-SemiBold" TextTransform="Uppercase" FontSize="30" Margin="10,20,10,10"
                        HorizontalOptions="Center" VerticalOptions="Center"></Label>
-            
-                <Label Text="Choose where you want to check the weather" HorizontalOptions="Center" VerticalOptions="Center" ></Label>
+            <!-- End Header -->
+            <!-- Picker -->
+                <Label Text="Choose where you want to check the weather" FontFamily="Roboto" FontSize="15"
+                       HorizontalOptions="Center" VerticalOptions="Center" ></Label>
             <Border StrokeThickness="2"
                     StrokeShape="RoundRectangle 60,60,60,60"
                     BackgroundColor="{StaticResource MyColor}"
-                    Stroke="{StaticResource MyColor}">
-                <Picker x:Name="LocationPicker" Title="Choose where you want to check the weather" FontSize="20"
+                    Stroke="{StaticResource MyColor}"
+                    Margin="5,0,5,0">
+                <Picker x:Name="LocationPicker" Title="Choose where you want to check the weather" FontSize="17"
                         HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
                         HorizontalOptions="FillAndExpand" 
                         SelectedIndexChanged="LocationPicker_OnSelectedIndexChanged"
                         ItemsSource="{Binding LocationPicker}" 
                         ItemDisplayBinding="{Binding Name}" 
                         SelectedItem="{Binding SelectedLocation}"
-                        ></Picker>
+                        >
+                </Picker>
             </Border>
-            
+            <!-- End Picker  -->
+            <!-- Forcasts collectionView  -->
         <CollectionView x:Name="ForecastsListView"
                         ItemsSource="{Binding Forecasts}"
                         SelectionMode="None"
@@ -34,60 +40,66 @@
             
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Border StrokeThickness="4"
+                    <Border StrokeThickness="4" Margin="5,5,5,5"
                             StrokeShape="RoundRectangle 30,30,30,30"
                             BackgroundColor="{StaticResource BackgroundAndBorder}"
                             Stroke="{StaticResource MyColor}"
                     >
-                    <VerticalStackLayout x:DataType="models:DailyForecast" BackgroundColor="{StaticResource BackgroundAndBorder}" Spacing="20" Padding="15,15,15,15" Margin="10,10,10,10">
+                    <VerticalStackLayout x:DataType="models:DailyForecast" BackgroundColor="{StaticResource BackgroundAndBorder}" Spacing="20" Padding="15,15,15,15" >
                         <Label Text="{Binding Date, StringFormat='{0: dd.MM.yyyy}'}" 
-                               FontSize="20" FontAttributes="Bold" 
+                               FontSize="20" FontFamily="RobotoCondensed-Bold"
                                HorizontalOptions="Center" VerticalOptions="Center"></Label>
+                        <!-- Night  -->
                         <Grid ColumnDefinitions="*,*">
-                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5" Grid.Column="0">
-                                <Label Text="Day" TextTransform="Uppercase"
+                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center"  Spacing="5" Grid.Column="0">
+                                <Label Text="Night" TextTransform="Uppercase" FontFamily="NunitoSans-Bold"
+                                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center" 
+                                       FontSize="18" FontAttributes="Bold"></Label>
+                                <Image Source="{Binding Night.IconString}"  ></Image>
+                                    
+                                <Label Text="{Binding Night.IconPhrase}" FontFamily="Roboto" FontSize="15"
+                                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+                                <Label Text="Min Temperature" FontFamily="Roboto" FontSize="16"
+                                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+                                <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Label Text="{Binding Temperature.Minimum.Value}" FontFamily="RobotoCondensed-Regular"
+                                           FontSize="18"></Label>
+                                    <Label Text="℃" FontSize="18" FontFamily="RobotoCondensed-Regular"></Label>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                            <!-- End night  -->
+                            <!-- Day -->
+                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5" Grid.Column="1">
+                                <Label Text="Day" TextTransform="Uppercase" FontFamily="NunitoSans-Bold"
                                        HorizontalOptions="Center" VerticalOptions="Center" 
                                        FontSize="18" FontAttributes="Bold"></Label>
                                 <Image Source="{Binding Day.IconString}"  
                                        HorizontalOptions="Center" VerticalOptions="Center"></Image>
-                            <Label Text="{Binding Day.IconPhrase}" 
+                            <Label Text="{Binding Day.IconPhrase}" FontFamily="Roboto" FontSize="15"
                                    HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                                <Label Text="Max Temperature" 
+                                <Label Text="Max Temperature" FontFamily="Roboto" FontSize="16"
                                        HorizontalOptions="Center" VerticalOptions="Center"></Label>
                                 <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                                <Label Text="{Binding Temperature.Maximum.Value}" 
+                                <Label Text="{Binding Temperature.Maximum.Value}" FontFamily="RobotoCondensed-Regular"
                                        FontSize="18"></Label>
-                                <Label Text="℃" FontSize="18"></Label>
+                                <Label Text="℃" FontSize="18" FontFamily="RobotoCondensed-Regular"></Label>
                                     </HorizontalStackLayout>
                                 </VerticalStackLayout>
-                                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center"  Spacing="5" Grid.Column="1">
-                                    <Label Text="Night" TextTransform="Uppercase"
-                                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center" 
-                                           FontSize="18" FontAttributes="Bold"></Label>
-                                    <Image Source="{Binding Night.IconString}"  ></Image>
-                                    
-                                    <Label Text="{Binding Night.IconPhrase}" 
-                                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
-                                    <Label Text="Min Temperature" 
-                                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
-                                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                                    <Label Text="{Binding Temperature.Minimum.Value}" 
-                                           FontSize="18"></Label>
-                                        <Label Text="℃" FontSize="18"></Label>
-                                    </HorizontalStackLayout>
-                            </VerticalStackLayout>
+                            <!-- End Day -->
                         </Grid>
                     </VerticalStackLayout>
                     </Border>
                 </DataTemplate>
 
             </CollectionView.ItemTemplate>
-
         </CollectionView>
+            <!-- End Forcasts collectionView -->
+            <!-- Footer -->
             <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
-                <Label Text="Forcasts based on  "></Label>
-                <Label Text="{Binding SourcesGet }"></Label>
+                <Label Text="Forcasts based on  " FontFamily="Roboto" FontSize="14"></Label>
+                <Label Text="{Binding SourcesGet }" FontFamily="Roboto" FontSize="14"></Label>
             </HorizontalStackLayout>
+            <!-- End Footer -->
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

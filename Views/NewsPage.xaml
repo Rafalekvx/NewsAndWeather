@@ -13,11 +13,14 @@
     
     <ScrollView>
         <VerticalStackLayout Spacing="20">
+            <!-- Header -->
             <VerticalStackLayout Spacing="10" >
                 <VerticalStackLayout BackgroundColor="{StaticResource BackgroundAndBorder}">
-                    <Label Text="Top Headlines" FontSize="20" Margin="10,10,10,10" FontFamily="SourceSans3" FontAttributes="Bold"
+                    <Label Text="Top Headlines" FontSize="24" Margin="10,10,10,10" FontFamily="SourceSans3-ExtraBold"
                            HorizontalOptions="Center" VerticalOptions="Center"></Label>
                 </VerticalStackLayout>
+                <!-- End Header -->
+                <!-- Category horizontal scrollview  -->
                 <ScrollView Orientation="Both" HorizontalScrollBarVisibility="Always">
                     <CollectionView x:Name="CategoriesList"
                                     ItemsSource="{Binding CategoriesList }"
@@ -26,7 +29,8 @@
                         
                         <CollectionView.ItemTemplate >
                             <DataTemplate x:DataType="models:Category">
-                                <Label Text="{Binding Name}" FontSize="15" 
+                                <Label Text="{Binding Name}" FontFamily="Roboto-Medium"
+                                       FontSize="17"
                                        Margin="10,5,10,5">
                                     <Label.GestureRecognizers>
                                         <TapGestureRecognizer NumberOfTapsRequired="1"
@@ -38,34 +42,35 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
                 </ScrollView>
-                
+                <!-- End category horizontal scrollview  -->
 
+                <!-- First news  -->
                 <VerticalStackLayout >
                     <Image Aspect="AspectFill" Source="{Binding LastestPost.ImageLink}" 
                            HorizontalOptions="Fill" VerticalOptions="Fill" Margin="0,10,0,5"></Image>
-                        <Grid ColumnDefinitions="*,*,*" Margin="0,10,0,30">
-                            <Label Text="{Binding LastestPost.CreatedBy.Name}" 
+                        <Grid ColumnDefinitions="*,*,*" Margin="0,10,0,20">
+                            <Label Text="{Binding LastestPost.CreatedBy.Name}"  FontFamily="NunitoSans-SemiBold"
                                    Grid.Column="0" HorizontalTextAlignment="Start"
                                    Margin="10,0,40,0"></Label>
-                            <Label Text="{Binding LastestPost.Categories[0].Name}" 
-                                   Grid.Column="1" HorizontalTextAlignment="Center"
+                            <Label Text="{Binding LastestPost.Categories[0].Name}" FontFamily="NunitoSans-SemiBold"
+                                   Grid.Column="1" HorizontalTextAlignment="Center" 
                                    Margin="40,0,40,0"></Label>
-                            <Label Text="{Binding LastestPost.CreatedDate, StringFormat='{0: dd.MM.yyyy}'}" 
+                            <Label Text="{Binding LastestPost.CreatedDate, StringFormat='{0: dd.MM.yyyy}'}"  FontFamily="RobotoCondensed-Bold"
                                    Grid.Column="2" HorizontalTextAlignment="End" 
                                    Margin="0,0,10,0"></Label>
                         </Grid>
-                    <Label FontAttributes="Bold" TextTransform="Uppercase" 
-                           Margin="0,0,0,30"
+                    <Label FontAttributes="Bold" TextTransform="Uppercase" FontSize="20"
+                           Margin="5,0,5,10" FontFamily="Montserrat-Bold"
                            VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
                            Text="{Binding LastestPost.Title}" 
                            HorizontalOptions="Center" VerticalOptions="Center"></Label>
                     <Label Text="{Binding LastestPost.Description}" 
-                           VerticalTextAlignment="Center" HorizontalTextAlignment="Center" 
-                           LineBreakMode="WordWrap" MaxLines="4"
+                           VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Margin="5,0,5,0"
+                           LineBreakMode="WordWrap" MaxLines="4" FontFamily="Montserrat" FontSize="15"
                            HorizontalOptions="Center" VerticalOptions="Start"></Label>
-                    <Label Text="Read More > " 
+                    <Label Text="Read More > " FontFamily="Montserrat-Bold"
                            VerticalTextAlignment="Center" HorizontalTextAlignment="Center" 
-                            HorizontalOptions="Center" VerticalOptions="Start"
+                            HorizontalOptions="Center" VerticalOptions="Start" Margin="0,10,0,0"
                             BackgroundColor="{StaticResource DarkThemeBackground}" TextColor="White">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer
@@ -75,6 +80,9 @@
                     </Label>
                 </VerticalStackLayout>
             </VerticalStackLayout>
+            <!-- End first news  -->
+            
+            <!-- News collectionView  -->
         <CollectionView x:Name="PostsListView"
                         ItemsSource="{Binding Posts}"
                         SelectionMode="None"
@@ -96,13 +104,13 @@
                         <Image Aspect="AspectFill" Source="{Binding ImageLink}" 
                                Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
                                HorizontalOptions="Fill" VerticalOptions="Fill" Margin="5,5,5,5"></Image>
-                        <Label FontAttributes="Bold" TextTransform="Uppercase" 
+                        <Label FontFamily="Montserrat-Bold" TextTransform="Uppercase" 
                                VerticalTextAlignment="Center"
                                HorizontalTextAlignment="Center"
                                Text="{Binding Title}" 
                                Grid.Row="0" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="2" 
                                HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                        <Label Text="{Binding Description}"  LineBreakMode="WordWrap" MaxLines="3"
+                        <Label Text="{Binding Description}"  LineBreakMode="WordWrap" MaxLines="3" FontFamily="Montserrat"
                                Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" 
                                HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
                                HorizontalOptions="Center" VerticalOptions="Start"></Label>
@@ -120,6 +128,7 @@
                 </CollectionView.ItemTemplate>
 
             </CollectionView>
+            <!-- End news collectionView  -->
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

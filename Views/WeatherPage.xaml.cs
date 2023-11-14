@@ -22,11 +22,11 @@ public partial class WeatherPage : ContentPage
     {
         base.OnAppearing();
         _viewmodel.GetList();
+        LocationPicker.SelectedIndex = 0;
     }
 
     private void LocationPicker_OnSelectedIndexChanged(object sender, EventArgs e)
     {
         base.OnAppearing();
-        _viewmodel.GetList();
     }
 }

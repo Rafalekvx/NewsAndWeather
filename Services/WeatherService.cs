@@ -9,7 +9,7 @@ public class WeatherService : IWeatherService
     
     private HttpClient _client = new HttpClient();
 
-    private string url ="https://dataservice.accuweather.com/";
+    private string url ="https://aadataservice.accuweather.com/";
     private string apikey = "Ag2SIT2UK5JJOIoubc8GN1yYYnZUQ1EQ";
     
     public async Task<Weather> Get5DailyForecast(int locationID)

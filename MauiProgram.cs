@@ -18,8 +18,19 @@ public static class MauiProgram
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                fonts.AddFont("SourceSans3-Italic-VariableFont_wght.ttf, SourceSans3-Italic");
-                fonts.AddFont("SourceSans3-VariableFont_wght.ttf, SourceSans3");
+                fonts.AddFont("SourceSans3-Italic-VariableFont_wght.ttf", "SourceSans3-Italic");
+                fonts.AddFont("SourceSans3-VariableFont_wght.ttf", "SourceSans3");
+                fonts.AddFont("NunitoSans.ttf", "NunitoSans");
+                fonts.AddFont("NunitoSans-Italic.ttf", "NunitoSans-Italic");
+                fonts.AddFont("Roboto-Regular.ttf", "Roboto");
+                fonts.AddFont("Roboto-Light.ttf", "Roboto-Light");
+                fonts.AddFont("Roboto-Medium.ttf", "Roboto-Medium");
+                fonts.AddFont("Roboto-Black.ttf", "Roboto-Black");
+                fonts.AddFont("RobotoCondensed.ttf", "RobotoCondensed");
+                fonts.AddFont("Montserrat-Regular.ttf","Montserrat");
+                fonts.AddFont("Montserrat-Medium.ttf","Montserrat-Medium");
+                fonts.AddFont("Montserrat-Bold.ttf","Montserrat-Bold");
+                fonts.AddFont("Montserrat-ExtraBold.ttf","Montserrat-ExtraBold");
             })
             .ConfigureMauiHandlers(handlers =>
             {

@@ -13,6 +13,6 @@ public class MyPickerHandler : PickerHandler
         GradientDrawable gd = new GradientDrawable();
         gd.SetColor(global::Android.Graphics.Color.Transparent);
         platformView.SetBackground(gd);
-           
+        
     }
 }
