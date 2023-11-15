@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using NewsAndWeather.Services;
 using NewsAndWeather.ViewModels;
 using NewsAndWeather.Views;
+using Syncfusion.Maui.Core.Hosting;
 
 namespace NewsAndWeather;
 
@@ -13,6 +14,7 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .ConfigureSyncfusionCore()
             .UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
             {

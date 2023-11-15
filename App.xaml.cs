@@ -7,6 +7,7 @@ public partial class App : Application
     public App()
     {
         InitializeComponent();
+        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("***REMOVED***");
         Application.Current.UserAppTheme = AppTheme.Dark;
         DependencyService.Register<NewsService>();
         DependencyService.Register<WeatherService>();

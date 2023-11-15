@@ -6,6 +6,7 @@
              xmlns:viewmodels="clr-namespace:NewsAndWeather.ViewModels"
              x:DataType="viewmodels:WeatherPageViewModel"
              xmlns:models="clr-namespace:NewsAndWeather.Models"
+             xmlns:editors="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
              >
     <ScrollView>
         <!-- Header -->
@@ -21,15 +22,16 @@
                     BackgroundColor="{StaticResource MyColor}"
                     Stroke="{StaticResource MyColor}"
                     Margin="5,0,5,0">
-                <Picker x:Name="LocationPicker" Title="Choose where you want to check the weather" FontSize="17"
-                        HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
-                        HorizontalOptions="FillAndExpand" 
-                        SelectedIndexChanged="LocationPicker_OnSelectedIndexChanged"
-                        ItemsSource="{Binding LocationPicker}" 
-                        ItemDisplayBinding="{Binding Name}" 
-                        SelectedItem="{Binding SelectedLocation}"
-                        >
-                </Picker>
+                <editors:SfComboBox x:Name="LocationPicker" FontSize="17"
+                                  HorizontalOptions="FillAndExpand" 
+                                  ItemsSource="{Binding LocationPicker}"
+                                  SelectedValuePath="Id"
+                                  SelectionChanged="LocationPicker_OnSelectedIndexChanged"
+                                  DisplayMemberPath="Name" TextMemberPath="Name"
+                                  MaxDropDownHeight="300"
+                >
+                  
+                </editors:SfComboBox>
             </Border>
             <!-- End Picker  -->
             <!-- Forcasts collectionView  -->

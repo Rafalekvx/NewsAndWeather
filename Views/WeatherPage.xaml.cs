@@ -21,12 +21,13 @@ public partial class WeatherPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
+        
         _viewmodel.GetList();
-        LocationPicker.SelectedIndex = 0;
     }
 
     private void LocationPicker_OnSelectedIndexChanged(object sender, EventArgs e)
     {
+        _viewmodel.SelectedLocationID = int.Parse(LocationPicker.SelectedValue.ToString());
         base.OnAppearing();
     }
 }

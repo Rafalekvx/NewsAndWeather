@@ -21,9 +21,9 @@ public partial class WeatherPageViewModel : BaseViewModel
     }
 
     [ObservableProperty]
-    private Location _locationPick;
+    private int _locationPick;
 
-    public Location SelectedLocation
+    public int SelectedLocationID
     {
         get { return LocationPick; }
         set
@@ -48,7 +48,7 @@ public partial class WeatherPageViewModel : BaseViewModel
     public async void GetList()
     {
 
-        Weather weather = await _weatherService.Get5DailyForecast(SelectedLocation.Id);
+        Weather weather = await _weatherService.Get5DailyForecast(SelectedLocationID);
         
         List<DailyForecast> helperList = weather.DailyForecasts;
     
