@@ -8,6 +8,14 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+                <ResourceDictionary>
+                    <x:String x:Key="SfComboBoxTheme">CustomTheme</x:String>
+                  
+                    <Color x:Key="SfComboBoxNormalDropdownItemsTextColor">White</Color>
+                    <Color x:Key="SfComboBoxDropdownBackground">#323232</Color>
+                    <Color x:Key="SfComboBoxNormalDropdownSelectionBackground">#0E8B6D</Color>
+                </ResourceDictionary>
+                
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

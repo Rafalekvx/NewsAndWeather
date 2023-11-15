@@ -22,15 +22,27 @@
                     BackgroundColor="{StaticResource MyColor}"
                     Stroke="{StaticResource MyColor}"
                     Margin="5,0,5,0">
-                <editors:SfComboBox x:Name="LocationPicker" FontSize="17"
-                                  HorizontalOptions="FillAndExpand" 
+                <editors:SfComboBox x:Name="LocationPicker" FontSize="17" Placeholder="Choose where you want to check the weather"
                                   ItemsSource="{Binding LocationPicker}"
-                                  SelectedValuePath="Id"
+                                  SelectedItem="{Binding SelectedLocation}"
                                   SelectionChanged="LocationPicker_OnSelectedIndexChanged"
+                                  BackgroundColor="{StaticResource BackgroundAndBorder}"
+                                  TextColor="{StaticResource White}"
+                                  PlaceholderColor="{StaticResource White}"
+                                  Stroke="{StaticResource BackgroundAndBorder}"
                                   DisplayMemberPath="Name" TextMemberPath="Name"
                                   MaxDropDownHeight="300"
                 >
-                  
+                    
+                    <editors:SfComboBox.ItemTemplate>
+                      <DataTemplate x:DataType="models:Location">
+                          <ViewCell>
+                              <Label HorizontalTextAlignment="Center" Text="{Binding Name}" 
+                                     FontSize="16" TextColor="{StaticResource White}"
+                                     Margin="12"></Label>
+                          </ViewCell>
+                      </DataTemplate>
+                  </editors:SfComboBox.ItemTemplate>
                 </editors:SfComboBox>
             </Border>
             <!-- End Picker  -->

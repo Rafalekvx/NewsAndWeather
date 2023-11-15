@@ -15,19 +15,17 @@ public partial class WeatherPage : ContentPage
         InitializeComponent();
         _viewmodel = new WeatherPageViewModel();
         this.BindingContext = _viewmodel;
-        LocationPicker.SelectedIndex = 0;
     }
     
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        
         _viewmodel.GetList();
     }
 
-    private void LocationPicker_OnSelectedIndexChanged(object sender, EventArgs e)
+    private void LocationPicker_OnSelectedIndexChanged(object sender, Syncfusion.Maui.Inputs.SelectionChangedEventArgs e)
     {
-        _viewmodel.SelectedLocationID = int.Parse(LocationPicker.SelectedValue.ToString());
         base.OnAppearing();
+        _viewmodel.GetList();
     }
 }

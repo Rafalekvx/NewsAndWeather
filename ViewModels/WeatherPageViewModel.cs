@@ -21,9 +21,9 @@ public partial class WeatherPageViewModel : BaseViewModel
     }
 
     [ObservableProperty]
-    private int _locationPick;
+    private Location _locationPick;
 
-    public int SelectedLocationID
+    public Location SelectedLocation
     {
         get { return LocationPick; }
         set
@@ -48,35 +48,36 @@ public partial class WeatherPageViewModel : BaseViewModel
     public async void GetList()
     {
 
-        Weather weather = await _weatherService.Get5DailyForecast(SelectedLocationID);
-        
-        List<DailyForecast> helperList = weather.DailyForecasts;
-    
-        if (helperList?.Count > 0)
+        if (!(SelectedLocation is null))
         {
-            Forecasts.Clear();
-            List<string> sourceHelperList = new List<string>(); 
-            foreach (DailyForecast forecast in helperList)
+            Weather weather = await _weatherService.Get5DailyForecast(SelectedLocation.Id);
+
+            List<DailyForecast> helperList = weather.DailyForecasts;
+
+            if (helperList?.Count > 0)
             {
-                forecast.Day.IconString = "i" + forecast.Day.Icon.ToString() + ".png";
-                
-                forecast.Night.IconString = "i" +forecast.Night.Icon.ToString() + ".png";
-                
-                Forecasts.Add(forecast);
-                
-                foreach (string source in forecast.Sources)
+                Forecasts.Clear();
+                List<string> sourceHelperList = new List<string>();
+                foreach (DailyForecast forecast in helperList)
                 {
-                    if (!(sourceHelperList.Contains(source)))
+                    forecast.Day.IconString = "i" + forecast.Day.Icon.ToString() + ".png";
+
+                    forecast.Night.IconString = "i" + forecast.Night.Icon.ToString() + ".png";
+
+                    Forecasts.Add(forecast);
+
+                    foreach (string source in forecast.Sources)
                     {
-                        SourcesGet = "";
-                        sourceHelperList.Add(source);
-                        SourcesGet += source;
+                        if (!(sourceHelperList.Contains(source)))
+                        {
+                            SourcesGet = "";
+                            sourceHelperList.Add(source);
+                            SourcesGet += source;
+                        }
                     }
+
                 }
-                
             }
-            
-            
         }
     }
 
