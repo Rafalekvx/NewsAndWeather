@@ -13,6 +13,8 @@ public partial class WeatherPage : ContentPage
     public WeatherPage()
     {
         InitializeComponent();
+        var inputView = LocationPicker.Children[1] as Entry;
+        inputView.HorizontalTextAlignment = TextAlignment.Center;
         _viewmodel = new WeatherPageViewModel();
         this.BindingContext = _viewmodel;
     }
