@@ -1,4 +1,6 @@
-﻿namespace NewsAndWeatherAPI.Models;
+﻿using NewsAndWeatherAPI.Entities;
+
+namespace NewsAndWeatherAPI.Models;
 
 public class Post
 {
@@ -8,6 +10,6 @@ public class Post
     public string ImageLink { get; set; }
     public DateTime CreatedDate { get; set; }
     
-    public int? CreatedById { get; set; }
+    public int CreatedById { get; set; }
     public List<LinkCategoryToNews> CategoriesToNews { get; set; }
 }

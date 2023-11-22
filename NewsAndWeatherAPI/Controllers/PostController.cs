@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NewsAndWeatherAPI.Entities;
 using NewsAndWeatherAPI.Models;
 using NewsAndWeatherAPI.Services;
@@ -39,9 +41,14 @@ public class PostController : ControllerBase
 
     [Route("new")]
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public ActionResult AddNews([FromBody]NewsAddDto dto)
     {
-        _newsService.AddNews(dto);
+        string userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+        int UserID = int.Parse(userId);
+        
+        _newsService.AddNews(dto, UserID);
 
         return Ok();
     }

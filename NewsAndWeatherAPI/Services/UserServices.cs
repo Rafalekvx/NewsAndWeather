@@ -56,8 +56,6 @@ namespace NewsAndWeatherAPI.Services
                 ID = user.ID,
                 Name = user.Name,
                 Email = user.Email,
-                DateOfBirth = user.DateOfBirth
-                
             };
             
             return usetDto;
@@ -65,7 +63,7 @@ namespace NewsAndWeatherAPI.Services
         }
         public string LoginUser(UserLoginDto login)
         {
-            User user = _dbContext.Users.FirstOrDefault(u => u.Email == login.Email);
+            User user = _dbContext.Users.Include(e=>e.Role).FirstOrDefault(u => u.Email == login.Email);
 
             if (user is null)
             {
@@ -76,7 +74,7 @@ namespace NewsAndWeatherAPI.Services
 
             if (result == PasswordVerificationResult.Failed)
             {
-                throw new Exception("Invalid Email");
+                throw new Exception("Invalid Password");
             }
 
             var claims = new List<Claim>()
@@ -84,7 +82,8 @@ namespace NewsAndWeatherAPI.Services
                 new Claim(ClaimTypes.NameIdentifier, user.ID.ToString()),
                 new Claim(ClaimTypes.Name,$"{user.Name}"),
                 new Claim(ClaimTypes.Email,$"{user.Email}"),
-                new Claim(ClaimTypes.DateOfBirth, $"{user.DateOfBirth}")
+                new Claim(ClaimTypes.DateOfBirth, $"{user.DateOfBirth}"),
+                new Claim(ClaimTypes.Role, $"{user.Role.Name}")
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey));
@@ -113,17 +112,22 @@ namespace NewsAndWeatherAPI.Services
 
         public void RegisterUser(UserRegisterDto register)
         {
+            if (_dbContext.Users.Any(e=> e.Email == register.Email))
+            {
+                throw new Exception("This email is already used");
+            }
+            
             User newUser = new User() 
             { 
                 Name = register.Name, 
                 Email = register.Email, 
                 Password = register.Password,
+                RoleID = 1
             };
 
             var HashedPassword = _passwordHasher.HashPassword(newUser,newUser.Password);
 
             newUser.Password = HashedPassword;
-
 
            _dbContext.Add(newUser);
            _dbContext.SaveChanges();

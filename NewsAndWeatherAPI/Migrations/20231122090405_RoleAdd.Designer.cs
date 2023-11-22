@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NewsAndWeatherAPI.Entities;
 
@@ -11,9 +12,11 @@ using NewsAndWeatherAPI.Entities;
 namespace NewsAndWeatherAPI.Migrations
 {
     [DbContext(typeof(NAWDBContext))]
-    partial class PostDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231122090405_RoleAdd")]
+    partial class RoleAdd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,7 +87,7 @@ namespace NewsAndWeatherAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<int>("CreatedById")
+                    b.Property<int?>("CreatedById")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
@@ -103,8 +106,6 @@ namespace NewsAndWeatherAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("CreatedById");
 
                     b.ToTable("Posts");
                 });
@@ -172,17 +173,6 @@ namespace NewsAndWeatherAPI.Migrations
                         .HasForeignKey("PostID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("NewsAndWeatherAPI.Models.Post", b =>
-                {
-                    b.HasOne("NewsAndWeatherAPI.Models.User", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CreatedBy");
                 });
 
             modelBuilder.Entity("NewsAndWeatherAPI.Models.User", b =>

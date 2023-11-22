@@ -1,4 +1,6 @@
-﻿using Microsoft.CodeAnalysis.Elfie.Serialization;
+﻿using System.Security.Claims;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
+using Microsoft.EntityFrameworkCore;
 using NewsAndWeatherAPI.Entities;
 using NewsAndWeatherAPI.Models;
 
@@ -35,15 +37,21 @@ public class NewsService : INewsService
         return listOfPosts;
     }
 
-    public void AddNews(NewsAddDto news)
+    public void AddNews(NewsAddDto news, int UserID)
     {
+        List<LinkCategoryToNews> listOfCategories = new List<LinkCategoryToNews>();
+        foreach (int category in news.Categories)
+        {
+            listOfCategories.Add(new LinkCategoryToNews(){PostID = _dbContext.Posts.OrderBy(e=> e.ID).Last().ID+1, CategoryID = category});
+        }
+        
         Post Added = new Post()
         {
             Title = news.Title,
             Description = news.Description,
-            CategoriesToNews = news.CategoriesToNews,
-            CreatedById = news.CreatedById,
-            CreatedDate = news.CreatedDate,
+            CategoriesToNews = listOfCategories ,
+            CreatedById = UserID ,
+            CreatedDate = DateTime.Now,
             ImageLink = news.ImageLink
         };
         

@@ -6,21 +6,20 @@ namespace NewsAndWeatherAPI.Entities;
 
 public class NAWDBContext : DbContext
 {
-    private string _connectionString = "***REMOVED***";
+    private string _connectionString = "Server=localhost;Database=NewsDb;Trusted_Connection=True;MultipleActiveResultSets=true;Encrypt=false";
     
     public DbSet<Post> Posts { get; set; }
-    
     public DbSet<User> Users { get; set; }
-    
     public DbSet<Location> Locations { get; set; }
-    
     public DbSet<Category> Categories { get; set; }
-    
     public DbSet<LinkCategoryToNews> CategoriesToNews { get; set; }
+    public DbSet<Role> Roles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 
+        modelBuilder.Entity<Role>().Property(r => r.Name).IsRequired();
+        
         modelBuilder.Entity<User>().Property(r => r.Name).IsRequired();
         modelBuilder.Entity<User>().Property(r => r.Email).IsRequired();
         modelBuilder.Entity<User>().Property(r => r.Password).IsRequired();
