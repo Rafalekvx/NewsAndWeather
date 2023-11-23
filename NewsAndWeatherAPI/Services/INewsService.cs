@@ -7,5 +7,5 @@ public interface INewsService
 {
     Post GetByID(int id);
     List<Post> GetAll();
-    void AddNews(NewsAddDto news, int UserID);
+    bool AddNews(NewsAddDto news, int UserID);
 }

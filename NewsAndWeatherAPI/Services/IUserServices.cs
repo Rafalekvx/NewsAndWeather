@@ -7,7 +7,7 @@ namespace NewsAndWeatherAPI.Services
     public interface IUserServices
     {
         public string LoginUser(UserLoginDto login);
-        public void RegisterUser(UserRegisterDto register);
+        public bool RegisterUser(UserRegisterDto register);
         public UserGetDto GetUserById(int id);
         public bool CheckTokenExpired(string token);
     }

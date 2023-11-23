@@ -19,7 +19,14 @@ public class LocationController : ControllerBase
     public ActionResult<List<Location>> GetAll()
     {
         List<Location> listOfLocations = _locationService.GetAll();
-
+        if (listOfLocations.Count == 0)
+        {
+            return NotFound("This don't have categories");
+        }
+        else if (listOfLocations is null)
+        {
+            return BadRequest("Something went wrong");
+        }
         return Ok(listOfLocations);
     }
     

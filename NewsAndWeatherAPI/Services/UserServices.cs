@@ -36,101 +36,114 @@ namespace NewsAndWeatherAPI.Services
 
         public bool CheckTokenExpired(string token)
         {
+            try
+            {
             var tokenTicks = GetTokenExpirationTime(token);
             var tokenDate = DateTimeOffset.FromUnixTimeSeconds(tokenTicks).UtcDateTime;
 
             var now = DateTime.Now.ToUniversalTime();
 
-            var valid = tokenDate >= now;
+            var valid = tokenDate > now;
 
             return valid;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
 
         public UserGetDto GetUserById([FromRoute]int id)
         {
-            User user = _dbContext.Users.FirstOrDefault(u => u.ID == id);
-
-            UserGetDto usetDto = new UserGetDto()
+            try
             {
-                ID = user.ID,
-                Name = user.Name,
-                Email = user.Email,
-            };
-            
-            return usetDto;
-            
+                User user = _dbContext.Users.FirstOrDefault(u => u.ID == id);
+                UserGetDto userDto = new UserGetDto()
+                {
+                    ID = user.ID,
+                    Name = user.Name,
+                    Email = user.Email,
+                };
+                if (user.RoleID == 1)
+                {
+                    userDto.Name = "*";
+                    userDto.Email = "*";
+                }
+                return userDto;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
         public string LoginUser(UserLoginDto login)
         {
-            User user = _dbContext.Users.Include(e=>e.Role).FirstOrDefault(u => u.Email == login.Email);
-
-            if (user is null)
+            try
             {
-                throw new Exception("Something went wrong");
+                User user = _dbContext.Users.Include(e => e.Role).FirstOrDefault(u => u.Email == login.Email);
+                if (user is null)
+                {
+                    return "Invalid";
+                }
+                var result = _passwordHasher.VerifyHashedPassword(user, user.Password, login.Password);
+                if (result == PasswordVerificationResult.Failed)
+                {
+                    return "Invalid";
+                }
+                var claims = new List<Claim>()
+                {
+                    new Claim(ClaimTypes.NameIdentifier, user.ID.ToString()),
+                    new Claim(ClaimTypes.Name, $"{user.Name}"),
+                    new Claim(ClaimTypes.Email, $"{user.Email}"),
+                    new Claim(ClaimTypes.DateOfBirth, $"{user.DateOfBirth}"),
+                    new Claim(ClaimTypes.Role, $"{user.Role.Name}")
+                };
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey));
+                var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                var expires = DateTime.Now.AddDays(_authenticationSettings.JwtExpireDays);
+                var token = new JwtSecurityToken(_authenticationSettings.JwtIssuer,
+                    _authenticationSettings.JwtIssuer,
+                    claims,
+                    expires: expires,
+                    signingCredentials: cred);
+                var tokenHandler = new JwtSecurityTokenHandler();
+                _dbContext.Users.Update(user);
+                _dbContext.SaveChanges();
+                return tokenHandler.WriteToken(token);
+                return string.Empty;
             }
-
-            var result = _passwordHasher.VerifyHashedPassword(user, user.Password, login.Password);
-
-            if (result == PasswordVerificationResult.Failed)
+            catch (Exception ex)
             {
-                throw new Exception("Invalid Password");
+                return null;
             }
-
-            var claims = new List<Claim>()
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.ID.ToString()),
-                new Claim(ClaimTypes.Name,$"{user.Name}"),
-                new Claim(ClaimTypes.Email,$"{user.Email}"),
-                new Claim(ClaimTypes.DateOfBirth, $"{user.DateOfBirth}"),
-                new Claim(ClaimTypes.Role, $"{user.Role.Name}")
-            };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey));
-
-            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var expires = DateTime.Now.AddDays(_authenticationSettings.JwtExpireDays);
-
-            var token = new JwtSecurityToken(_authenticationSettings.JwtIssuer,
-                _authenticationSettings.JwtIssuer,
-                claims,
-                expires: expires,
-                signingCredentials: cred);
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            
-
-            _dbContext.Users.Update(user);
-            _dbContext.SaveChanges();
-
-            return tokenHandler.WriteToken(token);
-
-            return string.Empty;
-
         }
 
-        public void RegisterUser(UserRegisterDto register)
+        public bool RegisterUser(UserRegisterDto register)
         {
-            if (_dbContext.Users.Any(e=> e.Email == register.Email))
+            try
             {
-                throw new Exception("This email is already used");
+                if (_dbContext.Users.Any(e => e.Email == register.Email))
+                {
+                    return false;
+                }
+                User newUser = new User()
+                {
+                    Name = register.Name,
+                    Email = register.Email,
+                    Password = register.Password,
+                    RoleID = 1
+                };
+                var HashedPassword = _passwordHasher.HashPassword(newUser, newUser.Password);
+                newUser.Password = HashedPassword;
+                _dbContext.Add(newUser);
+                _dbContext.SaveChanges();
+                return true;
             }
-            
-            User newUser = new User() 
-            { 
-                Name = register.Name, 
-                Email = register.Email, 
-                Password = register.Password,
-                RoleID = 1
-            };
-
-            var HashedPassword = _passwordHasher.HashPassword(newUser,newUser.Password);
-
-            newUser.Password = HashedPassword;
-
-           _dbContext.Add(newUser);
-           _dbContext.SaveChanges();
+            catch (Exception e)
+            {
+                return false;
+            }
         }
         
     }

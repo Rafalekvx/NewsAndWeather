@@ -12,24 +12,44 @@ public class CategoriesService : ICategoriesService
         _dbContext = dbContext;
     }
 
-    public Category GetById(int id)
+    public CategoryGetDto GetById(int id)
     {
-        Category category = _dbContext.Categories.FirstOrDefault(r => r.ID == id);
-
-        category.CategoriesToNews = _dbContext.CategoriesToNews.Where(r => r.CategoryID == category.ID).ToList();
-        
+        try
+        {
+        Category getDataFromDb = _dbContext.Categories.FirstOrDefault(r => r.ID == id);
+        CategoryGetDto category = new CategoryGetDto()
+        {
+            ID = getDataFromDb.ID,
+            Name = getDataFromDb.Name
+        };
         return category;
     }
-
-    public List<Category> GetAll()
+    catch (Exception ex)
     {
-        List<Category> listOfCategories = _dbContext.Categories.ToList();
-        
-        foreach (var category in listOfCategories)
+        return null;
+    }
+    }
+
+    public List<CategoryGetDto> GetAll()
+    {
+        try
         {
-            category.CategoriesToNews = _dbContext.CategoriesToNews.Where(r => r.CategoryID == category.ID).ToList();
+            List<Category> getDataFromDb = _dbContext.Categories.ToList();
+            List<CategoryGetDto> listToReturn = new List<CategoryGetDto>();
+            foreach (Category category in getDataFromDb)
+            {
+                listToReturn.Add(new CategoryGetDto()
+                {
+                    ID = category.ID,
+                    Name = category.Name
+                });
+
+            }
+            return listToReturn;
         }
-        
-        return listOfCategories;
+        catch (Exception ex)
+        {
+            return null;
+        }
     }
 }

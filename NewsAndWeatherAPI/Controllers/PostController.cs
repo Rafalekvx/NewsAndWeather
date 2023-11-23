@@ -22,12 +22,10 @@ public class PostController : ControllerBase
     public ActionResult<Post> GetByID([FromRoute] int id)
     {
         Post onePost = _newsService.GetByID(id);
-
         if (onePost is null)
         {
-            return NotFound(onePost);
+            return NotFound("This news not exist ");
         }
-        
         return Ok(onePost);
     }
     
@@ -35,7 +33,14 @@ public class PostController : ControllerBase
     public ActionResult<List<Post>> GetAll()
     {
         List<Post> listOfPosts = _newsService.GetAll();
-
+        if (listOfPosts.Count == 0)
+        {
+            return NotFound("This don't have categories");
+        }
+        else if (listOfPosts is null)
+        {
+            return BadRequest("Something went wrong");
+        }
         return Ok(listOfPosts);
     }
 
@@ -45,11 +50,12 @@ public class PostController : ControllerBase
     public ActionResult AddNews([FromBody]NewsAddDto dto)
     {
         string userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-
         int UserID = int.Parse(userId);
-        
-        _newsService.AddNews(dto, UserID);
-
+        bool isAdded = _newsService.AddNews(dto, UserID);
+        if (isAdded == false)
+        {
+            return StatusCode(503);
+        }
         return Ok();
     }
     
