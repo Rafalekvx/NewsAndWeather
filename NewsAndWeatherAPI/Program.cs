@@ -1,5 +1,7 @@
+using System.Configuration;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using NewsAndWeatherAPI;
 using NewsAndWeatherAPI.Entities;
@@ -8,8 +10,17 @@ using NewsAndWeatherAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+#if DEBUG
+    builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+    var connectionString = builder.Configuration.GetConnectionString("LocalDB");
+#else
+    builder.Configuration.AddJsonFile("connectionStrings.json", optional: false, reloadOnChange: true);
+    var connectionString = builder.Configuration.GetConnectionString("ConnectedDB");
+#endif
+
+
 // Add services to the container.
-builder.Services.AddDbContext<NAWDBContext>();
+builder.Services.AddDbContext<NAWDBContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddScoped<INewsService, NewsService>();
 builder.Services.AddScoped<ILocationService, LocationService>();
 builder.Services.AddScoped<ICategoriesService, CategoriesService>();
@@ -23,11 +34,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var authenticationSetting = new AuthenticationSettings();
-
 builder.Services.AddSingleton(authenticationSetting);
-
 builder.Configuration.GetSection("Authentication").Bind(authenticationSetting);
-
 builder.Services.AddAuthentication(option =>
 {
     option.DefaultAuthenticateScheme = "Bearer";
@@ -46,7 +54,6 @@ builder.Services.AddAuthentication(option =>
 });
 
 var app = builder.Build();
-
 var scope = app.Services.CreateScope();
 var seeder = scope.ServiceProvider.GetRequiredService<NAWSeeder>();
 seeder.Seed();

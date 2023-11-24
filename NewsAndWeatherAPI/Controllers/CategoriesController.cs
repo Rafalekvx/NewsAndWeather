@@ -21,7 +21,7 @@ public class CategoriesController : ControllerBase
     public ActionResult<List<CategoryGetDto>> GetAll()
     {
         List<CategoryGetDto> listOfCategories = _categoriesService.GetAll();
-        if (listOfCategories.Count == 0)
+        if (listOfCategories?.Count == 0)
         {
             return NotFound("This don't have categories");
         }
