@@ -46,8 +46,13 @@
 
                 <!-- First news  -->
                 <VerticalStackLayout >
-                    <Image Aspect="AspectFill" Source="{Binding LastestPost.ImageLink}" 
-                           HorizontalOptions="Fill" VerticalOptions="Fill" Margin="0,10,0,5"></Image>
+                    <Image Aspect="AspectFill" 
+                           HorizontalOptions="Fill" VerticalOptions="Fill" Margin="0,10,0,5">
+                        <Image.Source>
+                            <UriImageSource Uri="{Binding LastestPost.ImageLink}"
+                                            CachingEnabled="True" CacheValidity="14"></UriImageSource>
+                        </Image.Source>
+                    </Image>
                         <Grid ColumnDefinitions="*,*,*" Margin="0,10,0,20">
                             <Label Text="{Binding LastestPost.CreatedBy.Name}"  FontFamily="NunitoSans-SemiBold"
                                    Grid.Column="0" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" LineBreakMode="TailTruncation"
@@ -101,9 +106,14 @@
                               ColumnDefinitions="*,*,*" 
                               RowSpacing="20" >
                             
-                        <Image Aspect="AspectFill" Source="{Binding ImageLink}" 
+                        <Image Aspect="AspectFill"
                                Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
-                               HorizontalOptions="Fill" VerticalOptions="Fill" Margin="5,5,5,5"></Image>
+                               HorizontalOptions="Fill" VerticalOptions="Fill" Margin="5,5,5,5">
+                            <Image.Source>
+                                <UriImageSource  Uri="{Binding ImageLink}"
+                                                CachingEnabled="True" CacheValidity="14"></UriImageSource>
+                            </Image.Source>
+                        </Image>
                         <Label FontFamily="Montserrat-Bold" TextTransform="Uppercase" 
                                VerticalTextAlignment="Center"
                                HorizontalTextAlignment="Center"

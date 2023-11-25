@@ -9,8 +9,14 @@
        
        
        <VerticalStackLayout x:DataType="models:NewsView" Spacing="5">
-       <Image Aspect="AspectFit" Source="{Binding ImageLink}" 
-              HorizontalOptions="Center" VerticalOptions="Center" Margin="0,5,0,5"></Image>
+              <Image Aspect="AspectFill"
+                     Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
+                     HorizontalOptions="Fill" VerticalOptions="Fill" Margin="5,5,5,5">
+                     <Image.Source>
+                            <UriImageSource  Uri="{Binding ImageLink}"
+                                             CachingEnabled="True" CacheValidity="14"></UriImageSource>
+                     </Image.Source>
+              </Image>
        <Label FontFamily="Montserrat-Bold" TextTransform="Uppercase" 
               Text="{Binding Title}" FontSize="20" 
               VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
