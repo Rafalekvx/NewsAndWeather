@@ -15,7 +15,7 @@
         <ApplicationTitle>NewsAndWeather</ApplicationTitle>
 
         <!-- App Identifier -->
-        <ApplicationId>com.companyname.newsandweather</ApplicationId>
+        <ApplicationId>com.rafalek.newsandweather</ApplicationId>
         <ApplicationIdGuid>A087D778-F354-47CD-80C2-96FAAC9FAC71</ApplicationIdGuid>
 
         <!-- Versions -->
@@ -32,7 +32,7 @@
 
     <ItemGroup>
         <!-- App Icon -->
-        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4"/>
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
         <!-- Splash Screen -->
         <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128"/>
@@ -77,12 +77,7 @@
     <ItemGroup>
       <None Remove="NewsAndWeatherAPI\**" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="Mono.Android">
-        <HintPath>C:\Program Files\dotnet\packs\Microsoft.Android.Ref.33\33.0.46\ref\net7.0\Mono.Android.dll</HintPath>
-      </Reference>
-    </ItemGroup>
     
+
 
 </Project>

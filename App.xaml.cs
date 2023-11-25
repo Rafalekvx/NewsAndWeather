@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Text.Json;
 using NewsAndWeather.Services;
-using Org.Apache.Http.Protocol;
 
 namespace NewsAndWeather;
 
