@@ -65,7 +65,7 @@ namespace NewsAndWeatherAPI.Services
                     Name = user.Name,
                     Email = user.Email,
                 };
-                if (user.RoleID == 1)
+                if (user.RoleID == 2)
                 {
                     userDto.Name = "*";
                     userDto.Email = "*";

@@ -33,7 +33,7 @@ public class PostController : ControllerBase
     public ActionResult<List<Post>> GetAll()
     {
         List<Post> listOfPosts = _newsService.GetAll();
-        if (listOfPosts.Count == 0)
+        if (listOfPosts?.Count == 0)
         {
             return NotFound("This don't have categories");
         }

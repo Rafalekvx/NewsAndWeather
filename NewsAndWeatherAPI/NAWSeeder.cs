@@ -23,7 +23,7 @@ public class NAWSeeder
 
             if (!_dbContext.Users.Any())
             {
-                User user = new User() {Name = "Test" , Email = "Test@wp.pl", Password = "123", DateOfBirth = new DateTime(2001,10,4), RoleID =2};
+                User user = new User() {Name = "Test" , Email = "Test@wp.pl", Password = "123", DateOfBirth = new DateTime(2001,10,4), RoleID =1};
                 _dbContext.Add(user);
                 _dbContext.SaveChanges();
             }
@@ -37,15 +37,13 @@ public class NAWSeeder
         {
             new Role()
             {
-                Name="User"
+                Name="Admin"
             },
             new Role()
             {
-                Name="Admin"
+                Name="User"
             }
-
         };
-
         return roles;
     }
 }
