@@ -10,8 +10,8 @@ namespace NewsAndWeather.ViewModels;
 public partial class WeatherPageViewModel : BaseViewModel
 {
     public ObservableCollection<DailyForecast> Forecasts { get; }
-    public IWeatherService _weatherService => DependencyService.Get<IWeatherService>();
-    public ILocationService _locationService => DependencyService.Get<ILocationService>();
+    private IWeatherService _weatherService => DependencyService.Get<IWeatherService>();
+    private ILocationService _locationService => DependencyService.Get<ILocationService>();
     
 
     public ObservableCollection<Location> LocationPicker

@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Maui;
+﻿using System.Reflection;
+using CommunityToolkit.Maui;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using NewsAndWeather.Services;
 using NewsAndWeather.ViewModels;
@@ -41,6 +43,8 @@ public static class MauiProgram
             #endif
             })
             ;
+        
+        
 
         //Views
         builder.Services.AddScoped<NewsPage>();

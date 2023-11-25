@@ -3,7 +3,7 @@
   <component name="EfCoreDialogsState">
     <option name="keyValueStorage">
       <map>
-        <entry key="Common:buildConfiguration" value="Debug" />
+        <entry key="Common:buildConfiguration" value="Release" />
         <entry key="Common:e22e9637-313f-479d-9c56-41b4c2bfad09:dbContext" value="NewsAndWeatherAPI.Entities.NAWDBContext" />
         <entry key="Common:enableDiagnosticLogging" value="false" />
         <entry key="Common:noBuild" value="false" />

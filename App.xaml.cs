@@ -1,4 +1,7 @@
-﻿using NewsAndWeather.Services;
+﻿using System.Net;
+using System.Text.Json;
+using NewsAndWeather.Services;
+using Org.Apache.Http.Protocol;
 
 namespace NewsAndWeather;
 
@@ -7,7 +10,9 @@ public partial class App : Application
     public App()
     {
         InitializeComponent();
-        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("***REMOVED***");
+        string text = LoadMauiAsset("SyncfusionLicense.json");
+        SyncfusionLicense license = JsonSerializer.Deserialize<SyncfusionLicense>(text);
+        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(license.License);
         Application.Current.UserAppTheme = AppTheme.Dark;
         DependencyService.Register<NewsService>();
         DependencyService.Register<WeatherService>();
@@ -15,5 +20,13 @@ public partial class App : Application
         DependencyService.Register<UserServices>();
         DependencyService.Register<CategoriesService>();
         MainPage = new AppShell();
+    }
+    
+    string LoadMauiAsset(string filename)
+    {
+        using var stream = FileSystem.OpenAppPackageFileAsync(filename).Result;
+        using var reader = new StreamReader(stream);
+
+        return reader.ReadToEnd();
     }
 }

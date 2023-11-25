@@ -8,7 +8,6 @@ namespace NewsAndWeather.ViewModels;
 [QueryProperty(nameof(ItemId), nameof(ItemId))]
 public partial class DetailNewsPageViewModel : BaseViewModel
 {
-    public INewsService _newsService => DependencyService.Get<INewsService>();
 
     private int itemId;
 
@@ -18,7 +17,7 @@ public partial class DetailNewsPageViewModel : BaseViewModel
         set
         {
             itemId = value;
-            LoadItemId(value);
+            LoadItemId();
         }
     }
 
@@ -92,11 +91,11 @@ public partial class DetailNewsPageViewModel : BaseViewModel
     
     
     
-    public async void LoadItemId(int itemId)
+    public async void LoadItemId()
     {
         try
         {
-            var item = await _newsService.GetOneNews(itemId);
+            var item = NewsPageViewModel.SelectedItem;
             ID = item.ID;
             Title = item.Title;
             ImageLink = item.ImageLink;
