@@ -11,17 +11,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f25db69-0df1-425c-9db7-46cb68113398" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.NewsAndWeather.App/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.NewsAndWeather/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.NewsAndWeather/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.NewsAndWeather/.idea/efCoreCommonOptions.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.NewsAndWeather/.idea/efCoreDialogsState.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/App.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/App.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsAndWeather.App.sln" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsAndWeather.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/NewsAndWeather.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsAndWeather.sln" beforeDir="false" afterPath="$PROJECT_DIR$/NewsAndWeather.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsAndWeather.sln.DotSettings.user" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Platforms/Android/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Platforms/Android/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Resources/Raw/SyncfusionLicense.json" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/Raw/SyncfusionLicense.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,6 +26,7 @@
       <facet id="NewsAndWeather/invalid/Android Facet - NewsAndWeather" />
     </ignored-facets>
   </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 7
 }]]></component>
@@ -108,14 +98,26 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1700933374977</updated>
-      <workItem from="1700933376080" duration="2098000" />
+      <workItem from="1700933376080" duration="2362000" />
     </task>
+    <task id="LOCAL-00001" summary="remove unnecessary files">
+      <option name="closed" value="true" />
+      <created>1700935732760</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1700935732760</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="remove unnecessary files" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove unnecessary files" />
   </component>
 </project>

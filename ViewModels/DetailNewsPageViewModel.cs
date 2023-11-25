@@ -8,7 +8,7 @@ namespace NewsAndWeather.ViewModels;
 [QueryProperty(nameof(ItemId), nameof(ItemId))]
 public partial class DetailNewsPageViewModel : BaseViewModel
 {
-
+    
     private int itemId;
 
     public int ItemId
