@@ -3,10 +3,10 @@
 NewsAndWeather is a mobile application built with C# using the .NET MAUI (Multi-platform App UI) framework. Currently, it is designed to run on Android devices. The app provides users with the latest news sourced from a custom API developed by the author (link to the API repository provided below) and offers a 5-day weather forecast using the AccuWeather API.
 
 
-<img src="https://github.com/Rafalekvx/NewsAndWeather/assets/111763595/3aa3abfb-893b-481b-8707-5728f5242a10" width="210">
-<img src="https://github.com/Rafalekvx/NewsAndWeather/assets/111763595/6c83eb74-4bee-43a4-9673-ebd8b5dd6ad6" width="210">
-<img src="https://github.com/Rafalekvx/NewsAndWeather/assets/111763595/c87f2fa8-898e-4dd3-b197-f26fdfa571cf" width="210">
-<img src="https://github.com/Rafalekvx/NewsAndWeather/assets/111763595/9d61fd35-29be-4645-9fc1-5ba7e8a6581b" width="210">
+<img src="https://github.com/Rafalekvx/NewsAndWeather/assets/111763595/3aa3abfb-893b-481b-8707-5728f5242a10" width="200">
+<img src="https://github.com/Rafalekvx/NewsAndWeather/assets/111763595/6c83eb74-4bee-43a4-9673-ebd8b5dd6ad6" width="200">
+<img src="https://github.com/Rafalekvx/NewsAndWeather/assets/111763595/c87f2fa8-898e-4dd3-b197-f26fdfa571cf" width="200">
+<img src="https://github.com/Rafalekvx/NewsAndWeather/assets/111763595/9d61fd35-29be-4645-9fc1-5ba7e8a6581b" width="200">
 
 
 
