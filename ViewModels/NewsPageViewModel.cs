@@ -123,6 +123,10 @@ public partial class NewsPageViewModel : BaseViewModel
         Posts.Clear();
         foreach (NewsView post in helperList)
         {
+            if (!(Uri.IsWellFormedUriString(post.ImageLink, UriKind.Absolute)))
+            {
+                post.ImageLink = "https://newsandweatherstorage.blob.core.windows.net/newsandweatherimages/Noimage.png";
+            }
             Posts.Add(post);
         }
         helperList[0].Categories = helperList[0].Categories.OrderByDescending(x => x.ID).ToList();

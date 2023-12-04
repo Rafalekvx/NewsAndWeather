@@ -5,7 +5,8 @@
              x:Class="NewsAndWeather.Views.DetailNewsPage"
              xmlns:viewmodels="using:NewsAndWeather.ViewModels"
              xmlns:models="using:NewsAndWeather.Models"
-             x:DataType="viewmodels:DetailNewsPageViewModel">
+             x:DataType="viewmodels:DetailNewsPageViewModel"
+             Shell.TabBarIsVisible="False">
        
        
        <VerticalStackLayout Spacing="5">
