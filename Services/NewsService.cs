@@ -67,7 +67,7 @@ public class NewsService : INewsService
             List<NewsView> listOfNews = new List<NewsView>();
             foreach (var News in listOfPost)
             {
-                
+
                 NewsView newsView = new NewsView()
                 {
                     ID = News.ID,
@@ -80,15 +80,33 @@ public class NewsService : INewsService
                     CategoriesToNews = News.CategoriesToNews,
                     Categories = new List<Category>()
                 };
-                
-                
-                foreach (var categoriesTo in newsView.CategoriesToNews)
+
+                if (!(Uri.IsWellFormedUriString(newsView.ImageLink, UriKind.Absolute)))
                 {
-                    newsView.Categories.Add(_categoriesService.GetById(categoriesTo.CategoryID).Result);
+                    newsView.ImageLink =
+                        "https://newsandweatherstorage.blob.core.windows.net/newsandweatherimages/Noimage.png";
                 }
-                
+        
                 listOfNews.Add(newsView);
             }
+
+            foreach (var item in listOfNews)
+            {
+                                
+                if (item.Categories.Count == 0)
+                {
+                    item.CategoriesToNews.Add(new LinkCategoryToNews(){PostID = item.ID, CategoryID = 1, ID = 2137});
+                }
+
+                foreach (var categoriesTo in item.CategoriesToNews)
+                {
+                    item.Categories.Add(_categoriesService.GetById(categoriesTo.CategoryID).Result);
+                }
+
+
+            }
+            
+            
             
             return listOfNews;
 
@@ -97,9 +115,9 @@ public class NewsService : INewsService
         catch
         {
             
-            List<NewsView> posts = new List<NewsView>() { new NewsView() { ID = 1, Title = "Jeden", Description="Wiecej niz jeden", ImageLink="Linkacz" },
-                new NewsView() { ID = 2, Title = "Dwa", Description = "Wiecej niz dwa", ImageLink = "Linkacz" } ,
-                new NewsView() { ID = 3, Title = "Trzy", Description="Wiecej niz trzy", ImageLink="Linkacz" } };
+            List<NewsView> posts = new List<NewsView>() { new NewsView() { ID = 1, Title = "Jeden", Description="Wiecej niz jeden", ImageLink="https://newsandweatherstorage.blob.core.windows.net/newsandweatherimages/Noimage.png" },
+                new NewsView() { ID = 2, Title = "Dwa", Description = "Wiecej niz dwa", ImageLink = "https://newsandweatherstorage.blob.core.windows.net/newsandweatherimages/Noimage.png" } ,
+                new NewsView() { ID = 3, Title = "Trzy", Description="Wiecej niz trzy", ImageLink="https://newsandweatherstorage.blob.core.windows.net/newsandweatherimages/Noimage.png" } };
 
             return posts;
             

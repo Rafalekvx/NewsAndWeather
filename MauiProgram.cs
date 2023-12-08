@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-using CommunityToolkit.Maui;
-using Microsoft.Extensions.Configuration;
+﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using NewsAndWeather.Services;
 using NewsAndWeather.ViewModels;
