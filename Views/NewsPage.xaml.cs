@@ -21,6 +21,7 @@ public partial class NewsPage : ContentPage
         base.OnAppearing();
         _viewmodel.GetList();
         _viewmodel.GetCategoriesList();
+        _viewmodel.IsBusy = false;
     }
 
     private void Button_OnClicked(object sender, EventArgs e)

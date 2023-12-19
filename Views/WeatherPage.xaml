@@ -55,11 +55,12 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Border StrokeThickness="4" Margin="5,5,5,5"
-                            StrokeShape="RoundRectangle 30,30,30,30"
+                            Padding="5,5,5,5"
+                            StrokeShape="RoundRectangle 40,40,40,40"
                             BackgroundColor="{StaticResource BackgroundAndBorder}"
                             Stroke="{StaticResource MyColor}"
                     >
-                    <VerticalStackLayout x:DataType="models:DailyForecast" BackgroundColor="{StaticResource BackgroundAndBorder}" Spacing="20" Padding="15,15,15,15" >
+                    <VerticalStackLayout x:DataType="models:DailyForecast" BackgroundColor="{StaticResource BackgroundAndBorder}" Spacing="20" Margin="15,15,15,15" >
                         <Label Text="{Binding Date, StringFormat='{0: dd.MM.yyyy}'}" 
                                FontSize="20" FontFamily="RobotoCondensed-Bold"
                                HorizontalOptions="Center" VerticalOptions="Center"></Label>

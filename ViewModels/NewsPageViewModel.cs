@@ -37,20 +37,18 @@ public partial class NewsPageViewModel : BaseViewModel
         CategoriesList = new ObservableCollection<Category>();
         ItemTapped = new Command<NewsView>(OnItemSelected);
         CategoryTapped = new Command<Category>(FiltrBy);
-        PostsOneTake = _newsService.GetAllNews().Result.OrderByDescending(a=> a.CreatedDate).ToList();
-        lastestUpdate = DateTime.Now;
+        PostsOneTake = new List<NewsView>();
+        lastestUpdate = DateTime.Now.Subtract(TimeSpan.FromMinutes(15));
     }
 
     [RelayCommand]
     public async void GetList()
     {
         List<NewsView> helperList = await CheckForUpdateNews();
-        
         if (helperList?.Count > 0)
         {
             UpdateNews(helperList);
         }
-
     }
 
     [RelayCommand]
@@ -60,7 +58,13 @@ public partial class NewsPageViewModel : BaseViewModel
         
         if (helperList?.Count > 0)
         {
-            helperList = helperList.OrderByDescending(a=> a.Name).ToList();
+            helperList.Sort(delegate(Category x, Category y)
+            {
+                if (x.ID == null && y.ID == null) return 0;
+                else if (x.ID == null) return -1;
+                else if (y.ID == null) return 1;
+                else return x.ID.CompareTo(y.ID);
+            });
             CategoriesList.Clear();
             foreach (Category category in helperList)
             {
@@ -75,7 +79,6 @@ public partial class NewsPageViewModel : BaseViewModel
     {
         List<NewsView> newsHelperList = await CheckForUpdateNews();
         List<NewsView> helperList = new List<NewsView>();
-        
         foreach (var news in newsHelperList)
         {
             bool contains = false;
@@ -86,20 +89,15 @@ public partial class NewsPageViewModel : BaseViewModel
                     contains = true;
                 }
             }
-
             if (contains)
             {
                 helperList.Add( news);
             }
-            
         }
-
         if (helperList?.Count > 0)
         {
             UpdateNews(helperList);
         }
-        
-
     }
     
     
@@ -110,22 +108,30 @@ public partial class NewsPageViewModel : BaseViewModel
             return;
         }
 
-        SelectedItem = post;
-        
-        await Shell.Current.GoToAsync($"{nameof(DetailNewsPage)}?{nameof(DetailNewsPageViewModel.ItemId)}={post.ID}");
-
+        if (!IsBusy)
+        {
+            IsBusy = true;
+            SelectedItem = post;
+            await Shell.Current.GoToAsync(
+                $"{nameof(DetailNewsPage)}?{nameof(DetailNewsPageViewModel.ItemId)}={post.ID}");
+        }
     }
 
 
     private async void UpdateNews(List<NewsView> helperList)
     {
-        helperList = helperList.OrderByDescending(a=> a.CreatedDate).ToList();
+        helperList.Sort(delegate(NewsView x, NewsView y)
+        {
+            if (x.CreatedDate == null && y.CreatedDate == null) return 0;
+            else if (x.CreatedDate == null) return -1;
+            else if (y.CreatedDate == null) return 1;
+            else return y.CreatedDate.CompareTo(x.CreatedDate);
+        });
         Posts.Clear();
         foreach (NewsView post in helperList)
         {
             Posts.Add(post);
         }
-        helperList[0].Categories = helperList[0].Categories.OrderByDescending(x => x.ID).ToList();
         lastestPost = helperList[0];
         Posts.Remove(Posts.First());
     }
@@ -135,6 +141,7 @@ public partial class NewsPageViewModel : BaseViewModel
         List<NewsView> newsList = new List<NewsView>();
         if(lastestUpdate.AddMinutes(10) <= DateTime.Now){
             newsList = await _newsService.GetAllNews();
+            PostsOneTake = newsList;
             lastestUpdate = DateTime.Now;
         }
         else
