@@ -34,9 +34,32 @@ namespace NewsAndWeather.Services
             {
                 return new UserDto() { ID  = 0, Name = "Api is off", Email = "Ciul@wp.pl"};
             }
-            
-            
         }
+
+        public async Task<string> RegisterUser(RegisterDto registerDto)
+        {
+            string requestUrl = $"/api/user/register";
+            Uri fullUrl = new Uri(url + requestUrl);
+            try
+            {
+                RegisterDto dto = new RegisterDto()
+                    { name = "CmdUser2", email = "CmdUser2@wp.pl", password = "Trudne2137" };
+
+                string json = JsonConvert.SerializeObject(dto);
+
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var responseMsg = _client.PostAsync(fullUrl, content).Result;
+
+                string responseBody = responseMsg.StatusCode.ToString();
+
+                return responseBody.ToLower();
+            }
+            catch (Exception ex)
+            {
+                return "error";
+            }
+        } 
         
         
     }

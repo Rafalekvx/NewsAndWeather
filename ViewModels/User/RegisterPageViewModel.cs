@@ -1,11 +1,16 @@
 ﻿using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
+using NewsAndWeather.Models;
+using NewsAndWeather.Services;
 using NewsAndWeather.Views.UserPages;
 
 namespace NewsAndWeather.ViewModels.User;
 
 public partial class RegisterPageViewModel : BaseViewModel
 {
+    
+    private IUserServices _userService => DependencyService.Get<IUserServices>();
+    
     private string _email;
     public string Email
     {
@@ -30,7 +35,13 @@ public partial class RegisterPageViewModel : BaseViewModel
     [RelayCommand]
     public async void Register()
     {
-        await Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
+        string register = await _userService.RegisterUser(new RegisterDto() { name = DisplayName, email = Email, password = Password});
+        if (register == "created")
+        {
+            Application.Current.MainPage.DisplayAlert("registration was successful",
+                "Now log in to the account you created.", "OK");
+            await Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
+        }
     }
 
     [RelayCommand]
