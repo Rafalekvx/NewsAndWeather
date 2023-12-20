@@ -38,9 +38,14 @@ public partial class RegisterPageViewModel : BaseViewModel
         string register = await _userService.RegisterUser(new RegisterDto() { name = DisplayName, email = Email, password = Password});
         if (register == "created")
         {
-            Application.Current.MainPage.DisplayAlert("registration was successful",
+            Application.Current.MainPage.DisplayAlert("Registration was successful",
                 "Now log in to the account you created.", "OK");
             await Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
+        }
+        else
+        {
+            Application.Current.MainPage.DisplayAlert("Something went wrong",
+                "Something went wrong durning registration.", "OK");
         }
     }
 
