@@ -34,12 +34,6 @@ public static class MauiProgram
                 fonts.AddFont("Montserrat-Bold.ttf","Montserrat-Bold");
                 fonts.AddFont("Montserrat-ExtraBold.ttf","Montserrat-ExtraBold");
             })
-            .ConfigureMauiHandlers(handlers =>
-            {
-            #if ANDROID 
-                handlers.AddHandler(typeof(Picker), typeof(NewsAndWeather.MyPickerHandler));
-            #endif
-            })
             ;
         
         

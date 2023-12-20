@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NewsAndWeather.Views.StartPage">
+    <Grid RowDefinitions="100,*,100">
+        <Label Text="WELCOME" FontSize="20"
+               HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+            Grid.Row="0"></Label>
+        <VerticalStackLayout Grid.Row="1" HorizontalOptions="Center">
+            <Label Text="Hi, thanks for using our app, have fun while using!" 
+                   HorizontalTextAlignment="Center" HorizontalOptions="Center"
+                   VerticalOptions="Start" Margin="0,50,0,20"
+                   FontSize="14" ></Label>
+            <Label Text="Log in to access new features." 
+                HorizontalTextAlignment="Center" HorizontalOptions="Center"
+                VerticalOptions="Center" Margin="0,50,0,20"
+                FontSize="16"  ></Label>
+            <Button HorizontalOptions="Center" WidthRequest="200"
+                    VerticalOptions="Center" CornerRadius="40"
+                    Text="Log in" Clicked="LoginButton_OnClicked"></Button>
+        </VerticalStackLayout>
+    
+        <Button Text="Close" 
+                Grid.Row="2" CornerRadius="40"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                ToolTipProperties.Text="Loading data..."
+                WidthRequest="200" Clicked="CloseButton_OnClicked"></Button>
+        
+    </Grid>
+</ContentPage>

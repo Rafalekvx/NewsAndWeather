@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MvvmHelpers;
 using NewsAndWeather.Models;
 using NewsAndWeather.Services;
 using NewsAndWeather.Views;
@@ -11,9 +12,9 @@ public partial class NewsPageViewModel : BaseViewModel
 {
     public static NewsView SelectedItem { get; set; }  
     public List<NewsView> PostsOneTake { get; set; }
-    public ObservableCollection<NewsView> Posts { get; }
+    public ObservableRangeCollection<NewsView> Posts { get; }
     
-    public ObservableCollection<Category> CategoriesList { get; } 
+    public ObservableRangeCollection<Category> CategoriesList { get; } 
 
     private DateTime lastestUpdate;
     
@@ -33,8 +34,8 @@ public partial class NewsPageViewModel : BaseViewModel
     
     public NewsPageViewModel()
     {
-        Posts = new ObservableCollection<NewsView>();
-        CategoriesList = new ObservableCollection<Category>();
+        Posts = new ObservableRangeCollection<NewsView>();
+        CategoriesList = new ObservableRangeCollection<Category>();
         ItemTapped = new Command<NewsView>(OnItemSelected);
         CategoryTapped = new Command<Category>(FiltrBy);
         PostsOneTake = new List<NewsView>();
@@ -66,10 +67,7 @@ public partial class NewsPageViewModel : BaseViewModel
                 else return x.ID.CompareTo(y.ID);
             });
             CategoriesList.Clear();
-            foreach (Category category in helperList)
-            {
-                CategoriesList.Add(category);
-            }
+            CategoriesList.AddRange(helperList);
         }
         
     }
@@ -128,10 +126,7 @@ public partial class NewsPageViewModel : BaseViewModel
             else return y.CreatedDate.CompareTo(x.CreatedDate);
         });
         Posts.Clear();
-        foreach (NewsView post in helperList)
-        {
-            Posts.Add(post);
-        }
+        Posts.AddRange(helperList);
         lastestPost = helperList[0];
         Posts.Remove(Posts.First());
     }

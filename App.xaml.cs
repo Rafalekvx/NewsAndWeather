@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json;
 using NewsAndWeather.Services;
+using NewsAndWeather.Views;
 
 namespace NewsAndWeather;
 
@@ -18,7 +19,7 @@ public partial class App : Application
         DependencyService.Register<LocationService>();
         DependencyService.Register<UserServices>();
         DependencyService.Register<CategoriesService>();
-        MainPage = new AppShell();
+        MainPage = new StartPage();
     }
     
     string LoadMauiAsset(string filename)
