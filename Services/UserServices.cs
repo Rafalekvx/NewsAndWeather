@@ -43,7 +43,7 @@ namespace NewsAndWeather.Services
             try
             {
                 RegisterDto dto = new RegisterDto()
-                    { name = "CmdUser2", email = "CmdUser2@wp.pl", password = "Trudne2137" };
+                    { name = registerDto.name, email = registerDto.email, password = registerDto.password };
 
                 string json = JsonConvert.SerializeObject(dto);
 
