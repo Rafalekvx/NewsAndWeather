@@ -1,4 +1,5 @@
 ﻿using NewsAndWeather.Views;
+using NewsAndWeather.Views.UserPages;
 
 namespace NewsAndWeather;
 
@@ -9,6 +10,5 @@ public partial class AppShell : Shell
         InitializeComponent();
         
         Routing.RegisterRoute(nameof(DetailNewsPage), typeof(DetailNewsPage));
-        
     }
 }

@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:NewsAndWeather.ViewModels.User"
+             x:DataType="viewmodels:RegisterPageViewModel"
+             x:Class="NewsAndWeather.Views.UserPages.RegisterPage">
+    <Grid>
+        <Grid RowDefinitions="*,*,*,*,*,*,*,*,*">
+            <Grid Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="260" HeightRequest="100">
+                <BoxView CornerRadius="25" VerticalOptions="Center" HorizontalOptions="Center" 
+                         WidthRequest="300" HeightRequest="120" Color="{StaticResource OuterInputBackground}"/>
+                <StackLayout>
+                    <Label Text="Username" HorizontalOptions="Start" FontAttributes="Bold" FontSize="20" 
+                           TextColor="{StaticResource MyColor}" Margin="0,0,0,20"/>
+                    <Border BackgroundColor="{StaticResource InputBackground}">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="25" />
+                        </Border.StrokeShape>
+                        <Entry Text="{Binding DisplayName}" CursorPosition="15" TextColor="Black"
+                                HorizontalTextAlignment="Center" />
+                    </Border>
+                </StackLayout>
+            </Grid>
+
+            <Grid Grid.Row="3" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="260" HeightRequest="100">
+                <BoxView CornerRadius="25" VerticalOptions="Center" HorizontalOptions="Center"
+                         WidthRequest="300" HeightRequest="120" Color="{StaticResource OuterInputBackground}"/>
+                <StackLayout>
+                    <Label Text="E-mail" HorizontalOptions="Start" FontAttributes="Bold" FontSize="20" 
+                           TextColor="{StaticResource MyColor}" Margin="0,0,0,20"/>
+                    <Border BackgroundColor="{StaticResource InputBackground}">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="25" />
+                        </Border.StrokeShape>
+                        <Entry Text="{Binding Email}" CursorPosition="15" TextColor="Black"
+                                HorizontalTextAlignment="Center" />
+                    </Border>
+                </StackLayout>
+            </Grid>
+
+            <Grid Grid.Row="5" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="260" HeightRequest="100">
+                <BoxView CornerRadius="25" VerticalOptions="Center" HorizontalOptions="Center" 
+                         WidthRequest="300" HeightRequest="120" Color="{StaticResource OuterInputBackground}"/>
+                <StackLayout>
+                    <Label Text="Password" HorizontalOptions="Start" FontAttributes="Bold" FontSize="20" 
+                           TextColor="{StaticResource MyColor}" Margin="0,0,0,20"/>
+                    <Border BackgroundColor="{StaticResource InputBackground}">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="25" />
+                        </Border.StrokeShape>
+                        <Entry Text="{Binding Password}" CursorPosition="5"  TextColor="Black"
+                                IsPassword="True" HorizontalTextAlignment="Center"/>
+                    </Border>
+                </StackLayout>
+            </Grid>
+            
+            
+
+            <Button Grid.Row="6" Grid.RowSpan="2" x:Name="RegisterButton" Command="{Binding RegisterCommand}"
+                    HorizontalOptions="Center" VerticalOptions="Center" Text="REGISTER" FontSize="25" WidthRequest="200"/>
+            <Button Grid.Row="7" Grid.RowSpan="2" x:Name="CancelButton" Command="{Binding BackCommand}"
+                    HorizontalOptions="Center" VerticalOptions="Center" Text="CANCEL" FontSize="25" WidthRequest="200" />
+        </Grid>
+    </Grid>
+</ContentPage>

@@ -19,7 +19,7 @@ public partial class App : Application
         DependencyService.Register<LocationService>();
         DependencyService.Register<UserServices>();
         DependencyService.Register<CategoriesService>();
-        MainPage = new StartPage();
+        MainPage = new NavigationPage(new StartPage());
     }
     
     string LoadMauiAsset(string filename)

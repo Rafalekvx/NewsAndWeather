@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
+using NewsAndWeather.Views.UserPages;
 
 namespace NewsAndWeather.Views;
 
@@ -27,8 +28,8 @@ public partial class StartPage : ContentPage
         }
     }
 
-    private void LoginButton_OnClicked(object sender, EventArgs e)
+    private async void LoginButton_OnClicked(object sender, EventArgs e)
     {
-        
+        await Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
     }
 }
