@@ -1,4 +1,5 @@
 ﻿using NewsAndWeather.Models;
+using NewsAndWeather.Services.Sup;
 using Newtonsoft.Json;
 
 namespace NewsAndWeather.Services;
@@ -7,7 +8,7 @@ public class CategoriesService : ICategoriesService
 {
     private HttpClient _client = new HttpClient();
 
-    private string url ="https://newsandweatherapi1.azurewebsites.net";
+    private string url = ApiUrls.NewsApi();
     
     public async Task<List<Category>> GetAllCategories()
     {

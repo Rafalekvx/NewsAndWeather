@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using NewsAndWeather.Models;
+using NewsAndWeather.Services.Sup;
 using Newtonsoft.Json;
 
 namespace NewsAndWeather.Services;
@@ -9,8 +10,8 @@ public class WeatherService : IWeatherService
     
     private HttpClient _client = new HttpClient();
 
-    private string url ="https://dataservice.accuweather.com/";
-    private string apikey = "Ag2SIT2UK5JJOIoubc8GN1yYYnZUQ1EQ";
+    private string url = ApiUrls.WeatherApi();
+    private string apikey = ApiUrls.WeatherApiKey();
     
     public async Task<Weather> Get5DailyForecast(int locationID)
     {

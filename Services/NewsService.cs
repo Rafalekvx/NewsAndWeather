@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using NewsAndWeather.Models;
+using NewsAndWeather.Services.Sup;
 using Newtonsoft.Json;
 
 namespace NewsAndWeather.Services;
@@ -8,7 +9,7 @@ public class NewsService : INewsService
 {
     private HttpClient _client = new HttpClient();
 
-    private string url ="https://newsandweatherapi1.azurewebsites.net";
+    private string url =ApiUrls.NewsApi();
     
     private IUserServices _userServices => DependencyService.Get<IUserServices>();
     private ICategoriesService _categoriesService => DependencyService.Get<ICategoriesService>();

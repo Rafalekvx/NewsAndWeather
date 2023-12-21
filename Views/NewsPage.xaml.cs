@@ -15,15 +15,26 @@ public partial class NewsPage : ContentPage
         InitializeComponent();
         _viewmodel = new NewsPageViewModel();
         this.BindingContext = _viewmodel;
+        LoadAfterConstruction();
     }
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        _viewmodel.GetList();
-        _viewmodel.GetCategoriesList();
-        _viewmodel.IsBusy = false;
     }
 
+    private async void LoadAfterConstruction()
+    {
+        _viewmodel.IsBusy = true;
+        _viewmodel.GetList();
+        _viewmodel.GetCategoriesList();
+        //only set the binding of the CollectionView after loading completed
+        PostsListView.SetBinding(ItemsView.ItemsSourceProperty, "Posts");
+        CategoriesList.SetBinding(ItemsView.ItemsSourceProperty, "CategoriesList");
+
+        _viewmodel.IsBusy = false;
+    }
+    
+    
     private void Button_OnClicked(object sender, EventArgs e)
     {
         base.OnAppearing();

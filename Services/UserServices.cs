@@ -1,7 +1,9 @@
-﻿using System.Security.Claims;
+﻿using System.Net;
+using System.Security.Claims;
 using System.Text;
 using NewsAndWeather.Models;
 using NewsAndWeather.Services;
+using NewsAndWeather.Services.Sup;
 using Newtonsoft.Json;
 
 
@@ -13,7 +15,7 @@ namespace NewsAndWeather.Services
 
         private HttpClient _client = new HttpClient();
 
-        private string url ="https://newsandweatherapi1.azurewebsites.net";
+        private string url =ApiUrls.NewsApi();
         
         
         public async Task<UserDto> GetUserById(int id)
@@ -49,7 +51,7 @@ namespace NewsAndWeather.Services
 
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var responseMsg = _client.PostAsync(fullUrl, content).Result;
+                var responseMsg = await _client.PostAsync(fullUrl, content);
 
                 string responseBody = responseMsg.StatusCode.ToString();
 
@@ -60,7 +62,58 @@ namespace NewsAndWeather.Services
                 return "error";
             }
         } 
-        
-        
+        public async Task<string> LoginUser(LoginDto loginDto)
+        {
+            string requestUrl = $"/api/user/login";
+            Uri fullUrl = new Uri(url + requestUrl);
+            try
+            {
+                LoginDto dto = new LoginDto()
+                    {email = loginDto.email, password = loginDto.password };
+
+                string json = JsonConvert.SerializeObject(dto);
+
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var responseMsg = await _client.PostAsync(fullUrl, content);
+
+                if (responseMsg.StatusCode == HttpStatusCode.OK)
+                {
+                    string responseBody = await responseMsg.Content.ReadAsStringAsync();
+                    return responseBody;
+                }
+
+                return "";
+            }
+            catch (Exception ex)
+            {
+                return "error";
+            }
+        }
+
+        public async Task<bool> CheckIsTokenExpired(string token)
+        {
+            string requestUrl = $"/api/user/token/expired";
+            Uri fullUrl = new Uri(url + requestUrl);
+            try
+            {
+                string dto = token;
+                string json = JsonConvert.SerializeObject(dto);
+
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var responseMsg = await _client.PostAsync(fullUrl, content);
+
+                string responseBody = await responseMsg.Content.ReadAsStringAsync();
+
+                bool result = bool.TryParse(responseBody, out result);
+                
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return true;
+            }
+        }
     }
 }

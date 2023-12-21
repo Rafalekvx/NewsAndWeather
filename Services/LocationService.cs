@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using NewsAndWeather.Services.Sup;
+using Newtonsoft.Json;
 using Location = NewsAndWeather.Models.Location;
 
 namespace NewsAndWeather.Services;
@@ -7,7 +8,7 @@ public class LocationService : ILocationService
 {
     private HttpClient _client = new HttpClient();
 
-    private string url ="https://newsandweatherapi1.azurewebsites.net";
+    private string url = ApiUrls.NewsApi();
     
     
     public async Task<List<Location>> GetAllLocations()

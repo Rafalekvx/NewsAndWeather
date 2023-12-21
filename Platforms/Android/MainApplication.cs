@@ -3,7 +3,8 @@ using Android.Runtime;
 
 namespace NewsAndWeather;
 
-[Application]
+                               // connect to local service on the
+[Application(UsesCleartextTraffic = true)]  // emulator's host for debugging,
 public class MainApplication : MauiApplication
 {
     public MainApplication(IntPtr handle, JniHandleOwnership ownership)

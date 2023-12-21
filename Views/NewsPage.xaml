@@ -23,7 +23,6 @@
                 <!-- Category horizontal scrollview  -->
                 <ScrollView Orientation="Both" HorizontalScrollBarVisibility="Always">
                     <CollectionView x:Name="CategoriesList"
-                                    ItemsSource="{Binding CategoriesList }"
                                     ItemsLayout="HorizontalList" 
                                     SelectionMode="None">
                         
@@ -89,7 +88,6 @@
             
             <!-- News collectionView  -->
         <CollectionView x:Name="PostsListView"
-                        ItemsSource="{Binding Posts}"
                         SelectionMode="None"
         >
             <CollectionView.ItemTemplate>

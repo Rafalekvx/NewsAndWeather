@@ -1,10 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using NewsAndWeather.Models;
+using NewsAndWeather.Services;
 using NewsAndWeather.Views.UserPages;
 
 namespace NewsAndWeather.ViewModels.User;
 
 public partial class LoginPageViewModel : BaseViewModel
 {
+    private IUserServices _userService => DependencyService.Get<IUserServices>();
     private string _email;
     public string Email
     {
@@ -32,8 +35,29 @@ public partial class LoginPageViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    public void Login()
+    public async void Login()
     { 
-        Application.Current.MainPage = new AppShell();
+        string login = await _userService.LoginUser(new LoginDto() { email = Email, password = Password});
+        if (!(string.IsNullOrWhiteSpace(login)))
+        {
+            Application.Current.MainPage.DisplayAlert("Login was successful",
+                $"{login}", "OK");
+           Application.Current.MainPage = new AppShell();
+
+           if (Preferences.Default.ContainsKey("ApiKey") || Preferences.Default.ContainsKey("LoginDate") || Preferences.Default.ContainsKey("Email"))
+           {
+               Preferences.Default.Remove("ApiKey");
+               Preferences.Default.Remove("LoginDate");
+               Preferences.Default.Remove("Email");
+           }
+           Preferences.Default.Set("ApiKey", login);
+           Preferences.Default.Set("LoginDate", DateTime.Now);
+           Preferences.Default.Set("Email", Email);
+        }
+        else
+        {
+            Application.Current.MainPage.DisplayAlert("Something went wrong",
+                "Something went wrong durning registration.", "OK");
+        }
     }
 }

@@ -4,20 +4,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NewsAndWeather.Views.StartPage">
     <Grid RowDefinitions="100,*,100">
-        <Label Text="WELCOME" FontSize="20"
+        <Label Text="WELCOME" FontSize="20" x:Name="HeaderLabel"
                HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
             Grid.Row="0"></Label>
         <VerticalStackLayout Grid.Row="1" HorizontalOptions="Center">
-            <Label Text="Hi, thanks for using our app, have fun while using!" 
+            <Label Text="Hi, thanks for using our app, have fun while using!" x:Name="SecondLineLabel"
                    HorizontalTextAlignment="Center" HorizontalOptions="Center"
                    VerticalOptions="Start" Margin="0,50,0,20"
                    FontSize="14" ></Label>
-            <Label Text="Log in to access new features." 
+            <Label Text="Log in to access new features."  x:Name="LoginLabel"
                 HorizontalTextAlignment="Center" HorizontalOptions="Center"
                 VerticalOptions="Center" Margin="0,50,0,20"
                 FontSize="16"  ></Label>
             <Button HorizontalOptions="Center" WidthRequest="200"
-                    VerticalOptions="Center"
+                    VerticalOptions="Center" x:Name="LoginButton"
                     Text="Log in" Clicked="LoginButton_OnClicked"></Button>
         </VerticalStackLayout>
     
