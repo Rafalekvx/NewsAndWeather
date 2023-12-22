@@ -106,7 +106,7 @@ namespace NewsAndWeather.Services
 
                 string responseBody = await responseMsg.Content.ReadAsStringAsync();
 
-                bool result = bool.TryParse(responseBody, out result);
+                bool.TryParse(responseBody, out bool result);
                 
                 return result;
             }

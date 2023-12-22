@@ -4,7 +4,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:NewsAndWeather.ViewModels.User"
              x:DataType="viewmodels:RegisterPageViewModel"
-             x:Class="NewsAndWeather.Views.UserPages.RegisterPage">
+             x:Class="NewsAndWeather.Views.UserPages.RegisterPage"
+             Shell.TabBarIsVisible="False">
     <Grid>
         <Grid RowDefinitions="*,*,*,*,*,*,*,*,*">
             <Grid Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="260" HeightRequest="100">

@@ -1,8 +1,10 @@
 ﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MvvmHelpers;
 using NewsAndWeather.Models;
+using NewsAndWeather.PopUps;
 using NewsAndWeather.Services;
 using NewsAndWeather.Views;
 
@@ -146,5 +148,12 @@ public partial class NewsPageViewModel : BaseViewModel
         
         return newsList;
     }
-    
+
+
+    [RelayCommand]
+    public async void ShowLoginPopup()
+    {
+        var popup = new LoginPopUp();
+        Shell.Current.CurrentPage.ShowPopup(popup);
+    }
 }

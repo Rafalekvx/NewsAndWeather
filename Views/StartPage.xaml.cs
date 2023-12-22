@@ -26,8 +26,14 @@ public partial class StartPage : ContentPage
             {
                 LoginButton.IsVisible = false;
                 LoginLabel.IsVisible = false;
-                SecondLineLabel.IsVisible = false;
                 HeaderLabel.Text = "WELCOME BACK!";
+                SecondLineLabel.Text = $"{Preferences.Default.Get("Email","")} Nice to see you coming back to us!";
+            }
+            else
+            {
+                Preferences.Default.Remove("ApiKey");
+                Preferences.Default.Remove("LoginDate");
+                Preferences.Default.Remove("Email");
             }
         }
         

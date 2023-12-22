@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit" 
+             Color="Transparent"
+             CanBeDismissedByTappingOutsideOfPopup="False"
+             x:Class="NewsAndWeather.PopUps.LoginPopUp">
+    <Border StrokeThickness="4"
+            StrokeShape="RoundRectangle 30,30,30,30"
+            BackgroundColor="{StaticResource BackgroundAndBorder}"
+            Padding="15,15,15,15"
+            Stroke="{StaticResource MyColor}"
+    >
+        <VerticalStackLayout Spacing="10" Padding="15"  HorizontalOptions="Center" VerticalOptions="Center">
+            <Label HorizontalTextAlignment="Center" Text="We encourage you to register and unlock new features." FontSize="20" Margin="0,0,0,15" ></Label>
+            <Button x:Name="LoginButton" Text="Login" Clicked="LoginButton_OnClicked" BackgroundColor="{StaticResource MyColor}" FontAttributes="Bold"></Button>
+            <Button x:Name="RegisterButton" Text="Register" Clicked="RegisterButton_OnClicked" BackgroundColor="{StaticResource MyColor}" FontAttributes="Bold"></Button>
+            <Button x:Name="SignoutButton" Text="Sign out" Clicked="SignoutButton_OnClicked" BackgroundColor="{StaticResource MyColor}" FontAttributes="Bold" IsVisible="False"></Button>
+            <Button x:Name="CancelButton" Text="Cancel" Clicked="CancelButton_OnClicked" BackgroundColor="{StaticResource MyColor}" FontAttributes="Bold"></Button>
+        </VerticalStackLayout>
+    </Border>
+</toolkit:Popup>

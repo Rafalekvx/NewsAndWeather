@@ -2,7 +2,8 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="NewsAndWeather.Views.StartPage">
+             x:Class="NewsAndWeather.Views.StartPage"
+             Shell.BackgroundColor="{StaticResource DarkThemeBackground}">
     <Grid RowDefinitions="100,*,100">
         <Label Text="WELCOME" FontSize="20" x:Name="HeaderLabel"
                HorizontalTextAlignment="Center" VerticalTextAlignment="Center"

@@ -15,10 +15,25 @@
         <VerticalStackLayout Spacing="20">
             <!-- Header -->
             <VerticalStackLayout Spacing="10" >
-                <VerticalStackLayout BackgroundColor="{StaticResource BackgroundAndBorder}">
+                <Grid ColumnDefinitions="*,*,*" BackgroundColor="{StaticResource BackgroundAndBorder}">
+                    <Image Grid.Column="0" 
+                           Margin="10,10,10,0"
+                           Source="usersettings.png"
+                           Aspect="Center"
+                           HorizontalOptions="Start">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="{StaticResource Gray200}" />
+                        </Image.Behaviors>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ShowLoginPopupCommand}"
+                            ></TapGestureRecognizer>
+                        </Image.GestureRecognizers>
+                    </Image>
                     <Label Text="Top Headlines" FontSize="24" Margin="10,10,10,10" FontFamily="SourceSans3-ExtraBold"
+                           Grid.Column="0" Grid.ColumnSpan="3"
                            HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                </VerticalStackLayout>
+                   
+                </Grid>
                 <!-- End Header -->
                 <!-- Category horizontal scrollview  -->
                 <ScrollView Orientation="Both" HorizontalScrollBarVisibility="Always">
