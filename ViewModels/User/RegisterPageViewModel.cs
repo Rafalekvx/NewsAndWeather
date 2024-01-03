@@ -39,7 +39,7 @@ public partial class RegisterPageViewModel : BaseViewModel
         if (register == "created")
         {
             Application.Current.MainPage.DisplayAlert("Registration was successful",
-                "Now log in to the account you created.", "OK");
+                "Now you can log in to your account.", "OK");
             await Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
         }
         else

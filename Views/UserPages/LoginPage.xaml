@@ -20,7 +20,7 @@
                        <Border.StrokeShape>
                             <RoundRectangle CornerRadius="25" />
                        </Border.StrokeShape>
-                        <Entry CursorPosition="15" TextColor="Black"
+                        <Entry CursorPosition="15" TextColor="Black" x:Name="EmailEntry" IsEnabled="{Binding IsntBusy}"
                                HorizontalTextAlignment="Center" Text="{Binding Email}" />
                     </Border>
                 </StackLayout>
@@ -36,18 +36,18 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="25" />
                         </Border.StrokeShape>
-                        <Entry CursorPosition="5"
+                        <Entry CursorPosition="5" x:Name="PasswordEntry" IsEnabled="{Binding IsntBusy}"
                                Text="{Binding Password}"  TextColor="Black" 
                                IsPassword="True" HorizontalTextAlignment="Center"/>
                     </Border>
                 </StackLayout>
             </Grid>
 
-            <Button Grid.Row="5" x:Name="LoginButton" Command="{Binding LoginCommand}"
+            <Button Grid.Row="5" x:Name="LoginButton" Command="{Binding LoginCommand}" IsEnabled="{Binding IsntBusy}"
                     HorizontalOptions="Center" VerticalOptions="Center" Text="LOGIN" FontSize="25" WidthRequest="200"/>
-            <Button Grid.Row="6" x:Name="RegisterButton" Command="{Binding GoToRegisterCommand}"
+            <Button Grid.Row="6" x:Name="RegisterButton" Command="{Binding GoToRegisterCommand}" IsEnabled="{Binding IsntBusy}"
                     HorizontalOptions="Center" VerticalOptions="Center" Text="REGISTER" FontSize="25" WidthRequest="200"/>
-            <Button Grid.Row="7" Grid.RowSpan="2" x:Name="CancelButton" Command="{Binding BackCommand}"
+            <Button Grid.Row="7" Grid.RowSpan="2" x:Name="CancelButton" Command="{Binding BackCommand}" IsEnabled="{Binding IsntBusy}"
                     HorizontalOptions="Center" VerticalOptions="Center" Text="CANCEL" FontSize="25" WidthRequest="200" />
         </Grid>
     </Grid>

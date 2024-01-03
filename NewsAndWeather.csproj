@@ -82,12 +82,6 @@
     <ItemGroup>
       <None Remove="NewsAndWeatherAPI\**" />
     </ItemGroup>
-
-    <ItemGroup>
-      <MauiXaml Update="Views\NewPage1.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </MauiXaml>
-    </ItemGroup>
     
 
 
