@@ -42,20 +42,12 @@ public partial class NewsPageViewModel : BaseViewModel
         CategoryTapped = new Command<Category>(FiltrBy);
         PostsOneTake = new List<NewsView>();
         lastestUpdate = DateTime.Now.Subtract(TimeSpan.FromMinutes(15));
+        GetList();
     }
 
-    [RelayCommand]
-    public async void GetList()
-    {
-        List<NewsView> helperList = await CheckForUpdateNews();
-        if (helperList?.Count > 0)
-        {
-            UpdateNews(helperList);
-        }
-    }
 
     [RelayCommand]
-    public async void GetCategoriesList()
+    public async Task GetCategoriesList()
     {
         List<Category> helperList = await _categoriesService.GetAllCategories();
         
@@ -117,8 +109,18 @@ public partial class NewsPageViewModel : BaseViewModel
         }
     }
 
+    [RelayCommand]
+    public async Task GetList()
+    {
+        List<NewsView> helperList = await CheckForUpdateNews();
+        if (helperList?.Count > 0)
+        {
+            UpdateNews(helperList);
+        }
+    }
 
-    private async void UpdateNews(List<NewsView> helperList)
+    
+    private async Task UpdateNews(List<NewsView> helperList)
     {
         helperList.Sort(delegate(NewsView x, NewsView y)
         {
@@ -151,7 +153,7 @@ public partial class NewsPageViewModel : BaseViewModel
 
 
     [RelayCommand]
-    public async void ShowLoginPopup()
+    public async Task ShowLoginPopup()
     {
         var popup = new LoginPopUp();
         Shell.Current.CurrentPage.ShowPopup(popup);

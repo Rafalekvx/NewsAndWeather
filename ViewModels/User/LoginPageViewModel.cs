@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.Input;
 using NewsAndWeather.Models;
 using NewsAndWeather.Services;
 using NewsAndWeather.Views.UserPages;
@@ -35,7 +37,14 @@ public partial class LoginPageViewModel : BaseViewModel
     {
         if (IsntBusy)
         {
-            await Application.Current.MainPage.Navigation.PopAsync();
+            if (Application.Current.MainPage.Navigation.NavigationStack.Count <= 2)
+            {
+                await Application.Current.MainPage.Navigation.PopAsync();
+            }
+            else
+            {
+                Application.Current.MainPage = new AppShell();
+            }
         }
     }
 
@@ -53,6 +62,8 @@ public partial class LoginPageViewModel : BaseViewModel
     {
         if (IsntBusy)
         {
+            var toast = Toast.Make("Logging to your account...", ToastDuration.Long, 12D);
+            await toast.Show();
             IsntBusy = false;
             string login = await _userService.LoginUser(new LoginDto() { email = Email, password = Password });
             if (!(string.IsNullOrWhiteSpace(login)))
@@ -70,6 +81,9 @@ public partial class LoginPageViewModel : BaseViewModel
                 Preferences.Default.Set("ApiKey", login);
                 Preferences.Default.Set("LoginDate", DateTime.Now);
                 Preferences.Default.Set("Email", Email);
+                
+                var secondToast = Toast.Make("Successful login!", ToastDuration.Short, 12D);
+                await secondToast.Show();
             }
             else
             {

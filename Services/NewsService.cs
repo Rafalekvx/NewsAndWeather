@@ -58,12 +58,14 @@ public class NewsService : INewsService
 
         try
         {
-            var responseMsg = _client.GetAsync(url + requestUrl).Result;
-
-            string responseBody = await responseMsg.Content.ReadAsStringAsync();
-
-
-            List<Post> listOfPost = JsonConvert.DeserializeObject<List<Post>>(responseBody);
+            List<Post> listOfPost = new List<Post>();
+            using (Stream s = _client.GetStreamAsync($"{ApiUrls.NewsApi()+requestUrl}").Result)
+            using (StreamReader sr = new StreamReader(s))
+            using (JsonReader reader = new JsonTextReader(sr))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                listOfPost = serializer.Deserialize<List<Post>>(reader);
+            }
 
             List<NewsView> listOfNews = new List<NewsView>();
             foreach (var News in listOfPost)
