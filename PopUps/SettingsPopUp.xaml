@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit" 
+               xmlns:editors="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
+               xmlns:models="clr-namespace:NewsAndWeather.Models"
+               xmlns:viewmodels="clr-namespace:NewsAndWeather.ViewModels.PopUps"
+               x:DataType="viewmodels:SettingsPopUpViewModel"
+               x:Class="NewsAndWeather.PopUps.SettingsPopUp"
+               Color="Transparent"
+               CanBeDismissedByTappingOutsideOfPopup="False">
+    <Border StrokeThickness="4"
+            StrokeShape="RoundRectangle 30,30,30,30"
+            BackgroundColor="{StaticResource BackgroundAndBorder}"
+            Padding="15,15,15,15"
+            Stroke="{StaticResource MyColor}"
+    >
+        <VerticalStackLayout Spacing="10" Padding="15"  HorizontalOptions="Center" VerticalOptions="Center">
+            <Label HorizontalTextAlignment="Center" Text="Your settings" FontSize="20" Margin="0,0,0,15" ></Label>
+            <Label Text="App Theme" FontSize="18" TextColor="{StaticResource White}" HorizontalOptions="Center" VerticalOptions="Center"> </Label>
+            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                <Label Text="Dark" FontSize="16" VerticalOptions="Center" VerticalTextAlignment="Center"></Label>
+                <Switch HorizontalOptions="Center" VerticalOptions="Center" ></Switch>
+                <Label Text="Light" FontSize="16" VerticalOptions="Center" VerticalTextAlignment="Center"></Label>
+            </HorizontalStackLayout>
+            <Label Text="Choose your default location" HorizontalOptions="Center" VerticalOptions="Center"></Label>
+            <Border StrokeThickness="2"
+                    StrokeShape="RoundRectangle 60,60,60,60"
+                    BackgroundColor="{StaticResource MyColor}"
+                    Stroke="{StaticResource MyColor}"
+                    Margin="5,0,5,0">
+                <editors:SfComboBox x:Name="LocationPicker" FontSize="17" Placeholder="Choose your default location"
+                                    ItemsSource="{Binding LocationPicker}"
+                                    SelectedItem="{Binding SelectedLocation}"
+                                    SelectionChanged="LocationPicker_OnSelectedIndexChanged"
+                                    BackgroundColor="{StaticResource BackgroundAndBorder}"
+                                    TextColor="{StaticResource White}"
+                                    PlaceholderColor="{StaticResource White}"
+                                    Stroke="{StaticResource BackgroundAndBorder}"
+                                    DisplayMemberPath="Name" TextMemberPath="Name"
+                                    MaxDropDownHeight="300"
+                                    DropDownIconColor="{StaticResource White}"
+                >
+                    
+                    <editors:SfComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="models:Location">
+                            <ViewCell>
+                                <Label HorizontalTextAlignment="Center" Text="{Binding Name}" 
+                                       FontSize="16" TextColor="{StaticResource White}"
+                                       Margin="12"></Label>
+                            </ViewCell>
+                        </DataTemplate>
+                    </editors:SfComboBox.ItemTemplate>
+                </editors:SfComboBox>
+            </Border>
+            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                <Label Text="Current selected : "  FontSize="16" ></Label> 
+                <Label x:Name="SelectedLabel" Text=""  FontSize="16" ></Label>
+            </HorizontalStackLayout>
+            <Button x:Name="SaveButton" Text="Save" BackgroundColor="{StaticResource MyColor}" FontAttributes="Bold"></Button>
+            <Button x:Name="CancelButton" Text="Cancel" Clicked="CancelButton_OnClicked" BackgroundColor="{StaticResource MyColor}" FontAttributes="Bold"></Button>
+        </VerticalStackLayout>
+    </Border>
+</toolkit:Popup>

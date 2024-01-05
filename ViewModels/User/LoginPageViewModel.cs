@@ -7,7 +7,7 @@ using NewsAndWeather.Views.UserPages;
 
 namespace NewsAndWeather.ViewModels.User;
 
-public partial class LoginPageViewModel : BaseViewModel
+public partial class LoginPageViewModel : UserBaseViewModel
 {
     private IUserServices _userService => DependencyService.Get<IUserServices>();
     private string _email;
@@ -62,33 +62,49 @@ public partial class LoginPageViewModel : BaseViewModel
     {
         if (IsntBusy)
         {
-            var toast = Toast.Make("Logging to your account...", ToastDuration.Long, 12D);
-            await toast.Show();
-            IsntBusy = false;
-            string login = await _userService.LoginUser(new LoginDto() { email = Email, password = Password });
-            if (!(string.IsNullOrWhiteSpace(login)))
+            if (!string.IsNullOrWhiteSpace(Email) && !string.IsNullOrWhiteSpace(Password))
             {
-                Application.Current.MainPage = new AppShell();
-
-                if (Preferences.Default.ContainsKey("ApiKey") || Preferences.Default.ContainsKey("LoginDate") ||
-                    Preferences.Default.ContainsKey("Email"))
+                if (IsValidEmail(Email) && IsValidPassword(Password))
                 {
-                    Preferences.Default.Remove("ApiKey");
-                    Preferences.Default.Remove("LoginDate");
-                    Preferences.Default.Remove("Email");
-                }
+                    var toast = Toast.Make("Logging to your account...", ToastDuration.Long, 12D);
+                    await toast.Show();
+                    IsntBusy = false;
+                    string login = await _userService.LoginUser(new LoginDto() { email = Email, password = Password });
+                    if (!(string.IsNullOrWhiteSpace(login)))
+                    {
+                        Application.Current.MainPage = new AppShell();
 
-                Preferences.Default.Set("ApiKey", login);
-                Preferences.Default.Set("LoginDate", DateTime.Now);
-                Preferences.Default.Set("Email", Email);
-                
-                var secondToast = Toast.Make("Successful login!", ToastDuration.Short, 12D);
-                await secondToast.Show();
+                        if (Preferences.Default.ContainsKey("ApiKey") || Preferences.Default.ContainsKey("LoginDate") ||
+                            Preferences.Default.ContainsKey("Email"))
+                        {
+                            Preferences.Default.Remove("ApiKey");
+                            Preferences.Default.Remove("LoginDate");
+                            Preferences.Default.Remove("Email");
+                        }
+
+                        Preferences.Default.Set("ApiKey", login);
+                        Preferences.Default.Set("LoginDate", DateTime.Now);
+                        Preferences.Default.Set("Email", Email);
+
+                        var secondToast = Toast.Make("Successful login!", ToastDuration.Short, 12D);
+                        await secondToast.Show();
+                    }
+                    else
+                    {
+                        Application.Current.MainPage.DisplayAlert("Something went wrong",
+                            "Something went wrong durning login.", "OK");
+                    }
+                }
+                else
+                {
+                    Application.Current.MainPage.DisplayAlert("Something went wrong",
+                        "Check that the email and password you provide is correct, remember that the password must meet security requirements - has a minimum of 8 characters, one capital letter and one number", "OK");
+                }
             }
             else
             {
                 Application.Current.MainPage.DisplayAlert("Something went wrong",
-                    "Something went wrong durning login.", "OK");
+                    "All fields cannot be empty!", "OK");
             }
 
             IsntBusy = true;

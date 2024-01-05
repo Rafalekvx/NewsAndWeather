@@ -1,7 +1,9 @@
 ﻿using System.Net;
-using System.Text.Json;
+using NewsAndWeather.Models;
 using NewsAndWeather.Services;
 using NewsAndWeather.Views;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace NewsAndWeather;
 
@@ -13,7 +15,15 @@ public partial class App : Application
         string text = LoadMauiAsset("SyncfusionLicense.json");
         SyncfusionLicense license = JsonSerializer.Deserialize<SyncfusionLicense>(text);
         Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(license.License);
-        Application.Current.UserAppTheme = AppTheme.Dark;
+        LoadSettings();
+        if (Preferences.Get("DarkTheme", true))
+        {
+            Application.Current.UserAppTheme = AppTheme.Dark;
+        }
+        else
+        {
+            Application.Current.UserAppTheme = AppTheme.Light;
+        }
         DependencyService.Register<NewsService>();
         DependencyService.Register<WeatherService>();
         DependencyService.Register<LocationService>();
@@ -28,5 +38,21 @@ public partial class App : Application
         using var reader = new StreamReader(stream);
 
         return reader.ReadToEnd();
+    }
+
+    void LoadSettings()
+    {
+        if (!Preferences.Default.ContainsKey("DarkTheme") || !Preferences.Default.ContainsKey("Location"))
+        {
+            Preferences.Default.Set("DarkTheme", true);
+            Preferences.Default.Set("Location", "nothing");
+        }
+        var startPath = FileSystem.Current.AppDataDirectory;
+        var combinedPath = Path.Combine(startPath, "ListOfUserTags.json");
+        List<UserCategory> fileContent = new List<UserCategory>();
+        if (!(File.Exists(combinedPath)))
+        {
+            File.WriteAllText(combinedPath, JsonConvert.SerializeObject(fileContent));
+        }
     }
 }

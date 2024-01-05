@@ -155,7 +155,14 @@ public partial class NewsPageViewModel : BaseViewModel
     [RelayCommand]
     public async Task ShowLoginPopup()
     {
-        var popup = new LoginPopUp();
-        Shell.Current.CurrentPage.ShowPopup(popup);
+        var loginPopUp = new LoginPopUp();
+        Shell.Current.CurrentPage.ShowPopup(loginPopUp);
+    }
+    
+    [RelayCommand]
+    public async Task ShowSettingsPopup()
+    {
+        var settingsPopUp = new SettingsPopUp();
+        Shell.Current.CurrentPage.ShowPopup(settingsPopUp);
     }
 }
