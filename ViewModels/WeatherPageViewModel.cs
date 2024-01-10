@@ -33,6 +33,8 @@ public partial class WeatherPageViewModel : BaseViewModel
         }
     }
 
+    [ObservableProperty] public int _locationIndex;
+
 
     [ObservableProperty] public string _sourcesGet;
     
@@ -87,6 +89,15 @@ public partial class WeatherPageViewModel : BaseViewModel
         List<Location> listOfLocations = await _locationService.GetAllLocations();
         
             listOfLocations = listOfLocations.OrderBy(r => r.Name).ToList();
+            if (Preferences.ContainsKey("Location"))
+            {
+                int Index = listOfLocations.FindIndex(e => e.Name == Preferences.Get("Location", "0"));
+                if (Index != -1)
+                {
+                    _locationIndex = Index;
+                }
+            }
+
             foreach (Location loc in listOfLocations)
             {
                 LocationPicker.Add(loc);

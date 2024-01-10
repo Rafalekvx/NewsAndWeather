@@ -21,7 +21,7 @@
             <Label Text="App Theme" FontSize="18" TextColor="{StaticResource White}" HorizontalOptions="Center" VerticalOptions="Center"> </Label>
             <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
                 <Label Text="Dark" FontSize="16" VerticalOptions="Center" VerticalTextAlignment="Center"></Label>
-                <Switch HorizontalOptions="Center" VerticalOptions="Center" ></Switch>
+                <Switch HorizontalOptions="Center" VerticalOptions="Center" IsToggled="{Binding IsLightThemeToggled}" ></Switch>
                 <Label Text="Light" FontSize="16" VerticalOptions="Center" VerticalTextAlignment="Center"></Label>
             </HorizontalStackLayout>
             <Label Text="Choose your default location" HorizontalOptions="Center" VerticalOptions="Center"></Label>
@@ -33,7 +33,6 @@
                 <editors:SfComboBox x:Name="LocationPicker" FontSize="17" Placeholder="Choose your default location"
                                     ItemsSource="{Binding LocationPicker}"
                                     SelectedItem="{Binding SelectedLocation}"
-                                    SelectionChanged="LocationPicker_OnSelectedIndexChanged"
                                     BackgroundColor="{StaticResource BackgroundAndBorder}"
                                     TextColor="{StaticResource White}"
                                     PlaceholderColor="{StaticResource White}"
@@ -58,7 +57,7 @@
                 <Label Text="Current selected : "  FontSize="16" ></Label> 
                 <Label x:Name="SelectedLabel" Text=""  FontSize="16" ></Label>
             </HorizontalStackLayout>
-            <Button x:Name="SaveButton" Text="Save" BackgroundColor="{StaticResource MyColor}" FontAttributes="Bold"></Button>
+            <Button x:Name="SaveButton" Text="Save" Command="{Binding SaveCommand}" BackgroundColor="{StaticResource MyColor}" FontAttributes="Bold"></Button>
             <Button x:Name="CancelButton" Text="Cancel" Clicked="CancelButton_OnClicked" BackgroundColor="{StaticResource MyColor}" FontAttributes="Bold"></Button>
         </VerticalStackLayout>
     </Border>

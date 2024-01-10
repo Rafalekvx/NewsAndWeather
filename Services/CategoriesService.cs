@@ -15,24 +15,16 @@ public class CategoriesService : ICategoriesService
         string requestUrl = "/api/categories";
         try
         { 
-            List<Category> listOfCategories = new List<Category>();
-            using (Stream s = _client.GetStreamAsync($"{ApiUrls.NewsApi()+requestUrl}").Result)
-            using (StreamReader sr = new StreamReader(s))
-            
-            using (JsonReader reader = new JsonTextReader(sr))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                listOfCategories = serializer.Deserialize<List<Category>>(reader);
-            }
-        
-            if (listOfCategories.Count == 0)
+            var responseMsg = _client.GetAsync(url + requestUrl).Result;
+            string responseBody = await responseMsg.Content.ReadAsStringAsync();
+            if (!(responseMsg.IsSuccessStatusCode))
             {
                 List<Category> secondList = new List<Category>() { new Category() { ID = 1, Name = "Api off" } };
 
                 return secondList;
             }
-
-            return listOfCategories;
+            List<Category> listOfLocations = JsonConvert.DeserializeObject<List<Category>>(responseBody);
+            return listOfLocations;
         }
 
         catch(Exception ex)

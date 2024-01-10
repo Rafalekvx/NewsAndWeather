@@ -10,6 +10,7 @@ namespace NewsAndWeather.Views;
 public partial class WeatherPage : ContentPage
 {
     private WeatherPageViewModel _viewmodel;
+
     public WeatherPage()
     {
         InitializeComponent();
@@ -17,8 +18,9 @@ public partial class WeatherPage : ContentPage
         inputView.HorizontalTextAlignment = TextAlignment.Center;
         _viewmodel = new WeatherPageViewModel();
         this.BindingContext = _viewmodel;
+        LocationPicker.SelectedIndex = _viewmodel._locationIndex;
     }
-    
+
     protected override void OnAppearing()
     {
         base.OnAppearing();

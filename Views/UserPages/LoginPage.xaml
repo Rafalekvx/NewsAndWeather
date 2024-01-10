@@ -5,7 +5,8 @@
              xmlns:viewmodels="clr-namespace:NewsAndWeather.ViewModels.User"
              x:DataType="viewmodels:LoginPageViewModel"
              x:Class="NewsAndWeather.Views.UserPages.LoginPage"
-             Shell.TabBarIsVisible="False">
+             Shell.TabBarIsVisible="False"
+             Shell.NavBarIsVisible="False">
      <Grid>
             <Grid RowDefinitions="*,*,*,*,*,*,*,*,*">
             <Grid Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="260" HeightRequest="100">

@@ -19,6 +19,7 @@ public partial class NewsPage : ContentPage
     }
     protected override void OnAppearing()
     {
+        _viewmodel.IsBusy = false;
         base.OnAppearing();
     }
 

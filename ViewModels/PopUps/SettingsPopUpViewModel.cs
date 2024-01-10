@@ -25,7 +25,17 @@ public partial class SettingsPopUpViewModel : BaseViewModel
             OnPropertyChanged();
         }
     }
-
+    [ObservableProperty]
+    private bool _isLightTheme;
+    public bool IsLightThemeToggled
+    {
+        get { return _isLightTheme; }
+        set
+        {
+            _isLightTheme = value;
+            OnPropertyChanged();
+        }
+    }
 
     public SettingsPopUpViewModel()
     {
@@ -44,9 +54,34 @@ public partial class SettingsPopUpViewModel : BaseViewModel
         }
 
     }
+
+    [RelayCommand]
+    public async void Save()
+    {
+        if (!(SelectedLocation is null))
+        {
+            ChangeLocation();
+        }
+        ChangeTheme();
+        Application.Current.MainPage.DisplayAlert("Restart App to chenge Theme",
+            "Restart App to chenge Theme.", "OK");
+
+    }
     
     public async void ChangeLocation()
     {
         Preferences.Default.Set("Location", SelectedLocation.Name);
+    }
+    
+    public async void ChangeTheme()
+    {
+        if (IsLightThemeToggled)
+        {
+            Preferences.Default.Set("DarkTheme", false);
+        }
+        else
+        {
+            Preferences.Default.Set("DarkTheme", true);
+        }
     }
 }

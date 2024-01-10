@@ -11,6 +11,9 @@
     <Color x:Key="OuterInputBackground">#C6C6C6</Color>
     <Color x:Key="InputBackground">#D9D9D9</Color>
     
+    <!-- Light mode -->
+    <Color x:Key="LightBackground">#F5F5F5  </Color>
+    
     
     <!-- System colors -->
     <Color x:Key="Primary">#0E8B6D</Color>

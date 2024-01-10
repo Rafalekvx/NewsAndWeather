@@ -2,9 +2,14 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="NewsAndWeather.Views.StartPage"
-             Shell.BackgroundColor="{StaticResource DarkThemeBackground}">
-    <Grid RowDefinitions="100,*,100">
+             Shell.NavBarIsVisible="False">
+    
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="{AppThemeBinding Light={StaticResource MyColor}, Dark={StaticResource DarkThemeBackground}}" StatusBarStyle="LightContent" />
+    </ContentPage.Behaviors>
+    <Grid RowDefinitions="100,*,100" >
         <Label Text="WELCOME" FontSize="20" x:Name="HeaderLabel"
                HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
             Grid.Row="0"></Label>
